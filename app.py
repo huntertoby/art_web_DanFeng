@@ -20,11 +20,13 @@ EXHIBITION_DATA = {
             "img": "/static/05聖母子與天使.jpg"
         },
         {
-            "id": "B-04", "title": "大公爵聖母 The Grand Duke's Madonna", "artist": "拉斐爾 Raphael Santi", "year": "1504-05",
+            "id": "B-04","title": "大公爵聖母 The Grand Duke’s Madonna",
+            "artist": "拉斐爾 Raphael Santi", "year": "1504-05",
             "location": "Palazzo Pitti, Florence, Italy",
             "desc": "文藝復興時期的畫家拉斐爾所畫的聖母與聖子，比起中世紀同樣的聖母題材繪畫有何不同呢？",
             "question": "拉斐爾的聖母與中世紀的聖母有何不同？",
-            "img": "/static/大公爵聖母.jpg"
+            "img": "/static/大公爵聖母.jpg",
+            "audio": "/static/大公爵聖母語音.mp3"
         }
     ],
     "完美無所不在": [

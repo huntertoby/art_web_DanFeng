@@ -15,11 +15,11 @@
                         serif: ['"Noto Serif TC"', 'serif'],
                     },
                     colors: {
-                        primary: '#8C3B00',    /* 溫潤的古典赭紅 */
-                        secondary: '#D99A5B',  /* 復古金 */
-                        bglight: '#FCFBF9',    /* 畫布般的暖白 */
+                        primary: '#8C3B00',
+                        secondary: '#D99A5B',
+                        bglight: '#FCFBF9',
                         cardbg: '#FFFFFF',
-                        textdark: '#1C1917',   /* 柔和的深灰黑 */
+                        textdark: '#1C1917',
                         textmuted: '#57534E'
                     },
                     boxShadow: {
@@ -31,12 +31,10 @@
         }
     </script>
     <style>
-        /* 隱藏捲軸但保留滾動功能 (針對美觀) */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background-color: #e5e5e5; border-radius: 10px; }
 
-        /* 滑入動畫 */
         .fade-in-up {
             opacity: 0;
             transform: translateY(20px);
@@ -47,11 +45,16 @@
             transform: translateY(0);
         }
 
-        /* Modal 背景模糊漸變 */
         .modal-backdrop {
             background-color: rgba(28, 25, 23, 0.7);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* 美化原生 audio 標籤的圓角 */
+        audio {
+            border-radius: 999px;
+            height: 40px;
         }
     </style>
 </head>
@@ -120,7 +123,7 @@
                         </p>
 
                         <button
-                            onclick="openArtworkModal('{{ item.title }}', '{{ item.artist }}', '{{ item.year }}', '{{ item.location }}', '{{ item.desc }}', '{{ item.question }}', '{{ item.img }}')"
+                            onclick="openArtworkModal('{{ item.title | replace("'", "\\'") }}', '{{ item.artist | replace("'", "\\'") }}', '{{ item.year }}', '{{ item.location | replace("'", "\\'") }}', '{{ item.desc | replace("'", "\\'") }}', '{{ item.question | replace("'", "\\'") }}', '{{ item.img }}', '{{ item.audio | default('') }}')"
                             class="w-full py-3.5 rounded-xl bg-bglight text-textdark font-medium text-sm border border-gray-200 active:bg-primary active:text-white transition-colors flex items-center justify-center gap-2 group-hover:border-primary/30">
                             <span class="text-primary text-base">✦</span> 探索細節
                         </button>
@@ -164,6 +167,17 @@
             </div>
 
             <div class="p-6 sm:p-8 bg-cardbg flex-grow">
+
+                <div id="modalAudioContainer" class="mb-7 hidden">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-secondary text-lg">🎧</span>
+                        <h4 class="text-sm font-bold text-textdark">學生語音導覽</h4>
+                    </div>
+                    <audio id="modalAudio" controls class="w-full outline-none shadow-sm">
+                        您的瀏覽器不支援音訊播放。
+                    </audio>
+                </div>
+
                 <div class="mb-8">
                     <div class="flex items-center gap-2 mb-3">
                         <div class="w-1 h-4 bg-primary rounded-full"></div>
@@ -208,7 +222,6 @@
     </div>
 
     <script>
-        // 1. 滾動滑入動畫 (Intersection Observer)
         document.addEventListener("DOMContentLoaded", () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -225,8 +238,8 @@
             document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
         });
 
-        // 2. 展品細節 Modal 邏輯
-        function openArtworkModal(title, artist, year, location, desc, question, img) {
+        // 加入 audioSrc 參數
+        function openArtworkModal(title, artist, year, location, desc, question, img, audioSrc) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalArtistYear').textContent = `${artist} | ${year}`;
 
@@ -250,26 +263,35 @@
 
             document.getElementById('modalImg').src = img;
 
+            // 處理語音導覽播放器邏輯
+            const audioContainer = document.getElementById('modalAudioContainer');
+            const audioEl = document.getElementById('modalAudio');
+
+            if (audioSrc && audioSrc.trim() !== "") {
+                audioEl.src = audioSrc;
+                audioContainer.style.display = 'block';
+            } else {
+                audioEl.pause();
+                audioEl.src = ""; // 清空來源
+                audioContainer.style.display = 'none';
+            }
+
             const modal = document.getElementById('artworkModal');
             const backdrop = document.getElementById('artworkBackdrop');
             const content = document.getElementById('artworkModalContent');
 
             modal.classList.remove('hidden');
-
-            // 強制重繪以觸發動畫
             void modal.offsetWidth;
 
             backdrop.classList.remove('opacity-0');
             backdrop.classList.add('opacity-100');
 
-            // 手機版滑上，電腦版縮放
             content.classList.remove('translate-y-full', 'sm:translate-y-8', 'sm:scale-95', 'opacity-0');
             content.classList.add('translate-y-0', 'sm:scale-100', 'opacity-100');
 
             document.body.style.overflow = 'hidden';
         }
 
-        // 3. 結尾總結 Modal 邏輯
         function openConclusionModal() {
             const modal = document.getElementById('conclusionModal');
             const backdrop = document.getElementById('conclusionBackdrop');
@@ -287,9 +309,14 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // 4. 共用關閉 Modal 邏輯
         function closeModals() {
-            // 處理作品視窗
+            // 停止語音播放
+            const audioEl = document.getElementById('modalAudio');
+            if (audioEl) {
+                audioEl.pause();
+                audioEl.currentTime = 0; // 重置時間到最開始
+            }
+
             const artModal = document.getElementById('artworkModal');
             if (!artModal.classList.contains('hidden')) {
                 const backdrop = document.getElementById('artworkBackdrop');
@@ -304,10 +331,9 @@
                 setTimeout(() => {
                     artModal.classList.add('hidden');
                     document.body.style.overflow = 'auto';
-                }, 300); // 對應 CSS 的時間
+                }, 300);
             }
 
-            // 處理總結視窗
             const conModal = document.getElementById('conclusionModal');
             if (!conModal.classList.contains('hidden')) {
                 const backdrop = document.getElementById('conclusionBackdrop');
