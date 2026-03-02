@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>(二) 義大利文藝復興作品 - 丹鳳高中展覽</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Noto Serif TC"', 'serif'],
+                    },
+                    colors: {
+                        primary: '#8C3B00',
+                        secondary: '#D99A5B',
+                        bglight: '#FCFBF9',
+                        cardbg: '#FFFFFF',
+                        textdark: '#1C1917',
+                        textmuted: '#57534E'
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'float': '0 20px 40px -10px rgba(0,0,0,0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #e5e5e5; border-radius: 10px; }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .modal-backdrop {
+            background-color: rgba(28, 25, 23, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        audio {
+            border-radius: 999px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body class="bg-bglight text-textdark font-sans antialiased overflow-x-hidden selection:bg-secondary/30">
+
+    <header class="pt-12 pb-8 px-6 text-center fade-in-up">
+        <a href="{{ url_for('index') }}" class="inline-flex items-center gap-2 text-sm font-medium text-textmuted hover:text-primary transition-colors mb-6 group">
+            <span class="group-hover:-translate-x-1 transition-transform">←</span> 返回導覽樞紐
+        </a>
+        <h1 class="font-serif text-3xl sm:text-4xl font-bold mb-4 text-textdark">
+            (二) 多才！多藝！<br class="sm:hidden">義大利文藝復興作品
+        </h1>
+        <div class="w-16 h-px bg-primary/30 mx-auto"></div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-5 sm:px-8 pb-40">
+        {% for category, items in exhibition_data.items() %}
+        <div class="mb-20">
+            <div class="mb-8 flex items-center gap-4 fade-in-up">
+                <div class="w-1.5 h-6 bg-primary rounded-full"></div>
+                <h3 class="font-serif text-2xl sm:text-3xl font-bold text-textdark">{{ category }}</h3>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for item in items %}
+                <div class="group bg-cardbg rounded-2xl shadow-soft border border-black/[0.03] overflow-hidden fade-in-up flex flex-col active:scale-[0.98] transition-all duration-300">
+                    <div class="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+                        <img src="{{ item.img }}" alt="{{ item.title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
+                    </div>
+
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="mb-3">
+                            <h4 class="font-serif text-lg font-bold mb-1 text-textdark leading-snug">{{ item.title }}</h4>
+                            <p class="text-xs text-primary/80 font-medium tracking-wide">{{ item.artist }} <span class="mx-1 opacity-50">|</span> {{ item.year }}</p>
+                        </div>
+                        <p class="text-textmuted text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
+                            {{ item.desc }}
+                        </p>
+
+                        <button
+                            id="art-btn-{{ item.id }}"
+                            onclick="openArtworkModal('{{ item.title | replace("'", "\\'") }}', '{{ item.artist | replace("'", "\\'") }}', '{{ item.year }}', '{{ item.location | replace("'", "\\'") }}', '{{ item.desc | replace("'", "\\'") }}', '{{ item.question | replace("'", "\\'") }}', '{{ item.img }}', '{{ item.audio | default('') }}')"
+                            class="w-full py-3.5 rounded-xl bg-bglight text-textdark font-medium text-sm border border-gray-200 active:bg-primary active:text-white transition-colors flex items-center justify-center gap-2 group-hover:border-primary/30">
+                            <span class="text-primary text-base">✦</span> 探索細節
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </main>
+
+    <div class="fixed bottom-6 w-full px-5 z-40 flex justify-center pointer-events-none fade-in-up visible">
+        <button onclick="openConclusionModal()" class="pointer-events-auto w-full max-w-[320px] bg-textdark/90 backdrop-blur-md text-white py-4 px-6 rounded-2xl shadow-float active:scale-95 transition-all flex items-center justify-between border border-white/10 group">
+            <span class="font-serif text-[17px] tracking-wide pl-2">這場展覽的核心意義？</span>
+            <div class="bg-white/15 w-8 h-8 rounded-full flex items-center justify-center text-sm group-active:bg-white group-active:text-textdark transition-colors">
+                i
+            </div>
+        </button>
+    </div>
+
+    <div id="artworkModal" class="fixed inset-0 z-50 hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="absolute inset-0 modal-backdrop transition-opacity duration-300 opacity-0" id="artworkBackdrop" onclick="closeModals()"></div>
+
+        <div class="relative bg-white sm:rounded-2xl rounded-t-3xl shadow-2xl w-full sm:max-w-2xl max-h-[90dvh] sm:max-h-[85vh] overflow-y-auto transform translate-y-full sm:translate-y-8 sm:scale-95 opacity-0 transition-all duration-400 ease-out flex flex-col" id="artworkModalContent">
+
+            <button onclick="closeModals()" class="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-black/60 active:scale-90 transition-all z-10">
+                ✕
+            </button>
+
+            <div class="relative w-full aspect-square sm:aspect-video bg-gray-100 flex-shrink-0">
+                <img id="modalImg" src="" alt="" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+                <div class="absolute bottom-5 left-5 right-5 text-white">
+                    <h3 id="modalTitle" class="font-serif text-2xl sm:text-3xl font-bold mb-2 drop-shadow-md"></h3>
+                    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm text-white/90 font-medium">
+                        <span id="modalArtistYear" class="bg-black/30 backdrop-blur-sm px-2 py-1 rounded"></span>
+                        <span id="modalLocation" class="bg-black/30 backdrop-blur-sm px-2 py-1 rounded line-clamp-1"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 sm:p-8 bg-cardbg flex-grow">
+
+                <div id="modalAudioContainer" class="mb-7 hidden">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-secondary text-lg">🎧</span>
+                        <h4 class="text-sm font-bold text-textdark">學生語音導覽</h4>
+                    </div>
+                    <audio id="modalAudio" controls class="w-full outline-none shadow-sm">
+                        您的瀏覽器不支援音訊播放。
+                    </audio>
+                </div>
+
+                <div class="mb-8">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-1 h-4 bg-primary rounded-full"></div>
+                        <h4 class="text-sm font-bold text-primary uppercase tracking-widest">作品賞析</h4>
+                    </div>
+                    <p id="modalDesc" class="text-[15px] sm:text-base text-textdark leading-loose text-justify"></p>
+                </div>
+
+                <div id="modalQuestionContainer" class="relative bg-secondary/5 border-l-2 border-secondary rounded-r-xl overflow-hidden cursor-pointer group shadow-sm" onclick="revealQuestion()">
+
+                    <div id="questionOverlay" class="absolute inset-0 bg-[#f4ebe1] z-10 flex flex-col items-center justify-center transition-all duration-500 hover:bg-[#ebdccc]">
+                        <div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform duration-300">
+                            <span class="text-secondary text-2xl">💡</span>
+                        </div>
+                        <span class="text-primary font-bold text-sm tracking-widest">點擊解鎖思考提示</span>
+                    </div>
+
+                    <div id="questionContent" class="p-5 opacity-0 filter blur-sm transition-all duration-700">
+                        <h4 class="flex items-center gap-2 font-serif text-lg text-textdark mb-2">
+                            <span class="text-secondary text-xl">✦</span> 思考時刻
+                        </h4>
+                        <p id="modalQuestion" class="text-textmuted text-sm sm:text-[15px] leading-relaxed italic"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="conclusionModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-5">
+        <div class="absolute inset-0 modal-backdrop transition-opacity duration-300 opacity-0" id="conclusionBackdrop" onclick="closeModals()"></div>
+
+        <div class="relative bg-textdark text-bglight rounded-3xl shadow-2xl max-w-sm w-full p-8 sm:p-10 text-center border border-white/10 transform scale-90 opacity-0 transition-all duration-400 ease-out" id="conclusionModalContent">
+
+            <button onclick="closeModals()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 active:scale-90 flex items-center justify-center transition-all">
+                ✕
+            </button>
+
+            <div class="text-secondary text-4xl mb-5">✦</div>
+            <h3 class="font-serif text-2xl sm:text-3xl font-bold mb-5 text-bglight leading-snug">
+                人，是萬物的尺度。
+            </h3>
+            <p class="text-[15px] text-white/70 leading-relaxed mb-8 text-justify">
+                文藝復興不只是藝術風格的轉變，更是人類重新發現自我價值的過程。
+                從神性的崇拜回歸到人性的光輝，這場展覽希望帶給你的，
+                是那份勇於探索、追求真理與完美的精神。
+            </p>
+            <div class="w-12 h-px bg-white/20 mx-auto mb-6"></div>
+            <p class="text-xs text-white/40 tracking-wider">
+                感謝您的參觀<br><span class="mt-1 block">丹鳳高中 114學年度 廣達「遊於藝」巡迴展</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 滑入動畫觀察器
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.05,
+                rootMargin: "0px 0px -20px 0px"
+            });
+            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+            // 讀取網址 URL 參數，自動開啟指定畫作 Modal
+            const urlParams = new URLSearchParams(window.location.search);
+            const artId = urlParams.get('art');
+
+            if (artId) {
+                const targetBtn = document.getElementById(`art-btn-${artId}`);
+                if (targetBtn) {
+                    setTimeout(() => {
+                        targetBtn.click();
+                        targetBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 500);
+                }
+            }
+        });
+
+        // 解謎卡片的點擊翻牌功能
+        function revealQuestion() {
+            const overlay = document.getElementById('questionOverlay');
+            const content = document.getElementById('questionContent');
+
+            overlay.style.opacity = '0';
+            overlay.style.pointerEvents = 'none';
+
+            content.classList.remove('opacity-0', 'blur-sm');
+            content.classList.add('opacity-100', 'blur-none');
+        }
+
+        // 開啟畫作 Modal
+        function openArtworkModal(title, artist, year, location, desc, question, img, audioSrc) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalArtistYear').textContent = `${artist} | ${year}`;
+
+            const locEl = document.getElementById('modalLocation');
+            if(location && location.trim() !== "") {
+                locEl.textContent = location;
+                locEl.style.display = 'inline-block';
+            } else {
+                locEl.style.display = 'none';
+            }
+
+            document.getElementById('modalDesc').textContent = desc;
+
+            const qContainer = document.getElementById('modalQuestionContainer');
+            if (question && question.trim() !== "") {
+                document.getElementById('modalQuestion').textContent = question;
+                qContainer.style.display = 'block';
+
+                const overlay = document.getElementById('questionOverlay');
+                const content = document.getElementById('questionContent');
+                overlay.style.opacity = '1';
+                overlay.style.pointerEvents = 'auto';
+                content.classList.remove('opacity-100', 'blur-none');
+                content.classList.add('opacity-0', 'blur-sm');
+
+            } else {
+                qContainer.style.display = 'none';
+            }
+
+            document.getElementById('modalImg').src = img;
+
+            const audioContainer = document.getElementById('modalAudioContainer');
+            const audioEl = document.getElementById('modalAudio');
+            if (audioSrc && audioSrc.trim() !== "") {
+                audioEl.src = audioSrc;
+                audioContainer.style.display = 'block';
+            } else {
+                audioEl.pause();
+                audioEl.src = "";
+                audioContainer.style.display = 'none';
+            }
+
+            const modal = document.getElementById('artworkModal');
+            const backdrop = document.getElementById('artworkBackdrop');
+            const content = document.getElementById('artworkModalContent');
+
+            modal.classList.remove('hidden');
+            void modal.offsetWidth;
+
+            backdrop.classList.remove('opacity-0');
+            backdrop.classList.add('opacity-100');
+
+            content.classList.remove('translate-y-full', 'sm:translate-y-8', 'sm:scale-95', 'opacity-0');
+            content.classList.add('translate-y-0', 'sm:scale-100', 'opacity-100');
+
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 開啟展覽意義 Modal
+        function openConclusionModal() {
+            const modal = document.getElementById('conclusionModal');
+            const backdrop = document.getElementById('conclusionBackdrop');
+            const content = document.getElementById('conclusionModalContent');
+            modal.classList.remove('hidden');
+            void modal.offsetWidth;
+            backdrop.classList.remove('opacity-0');
+            backdrop.classList.add('opacity-100');
+            content.classList.remove('scale-90', 'opacity-0');
+            content.classList.add('scale-100', 'opacity-100');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 關閉所有 Modal
+        function closeModals() {
+            const audioEl = document.getElementById('modalAudio');
+            if (audioEl) {
+                audioEl.pause();
+                audioEl.currentTime = 0;
+            }
+
+            const artModal = document.getElementById('artworkModal');
+            if (!artModal.classList.contains('hidden')) {
+                const backdrop = document.getElementById('artworkBackdrop');
+                const content = document.getElementById('artworkModalContent');
+
+                backdrop.classList.remove('opacity-100');
+                backdrop.classList.add('opacity-0');
+
+                content.classList.remove('translate-y-0', 'sm:scale-100', 'opacity-100');
+                content.classList.add('translate-y-full', 'sm:translate-y-8', 'sm:scale-95', 'opacity-0');
+
+                setTimeout(() => {
+                    artModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+
+            const conModal = document.getElementById('conclusionModal');
+            if (!conModal.classList.contains('hidden')) {
+                const backdrop = document.getElementById('conclusionBackdrop');
+                const content = document.getElementById('conclusionModalContent');
+
+                backdrop.classList.remove('opacity-100');
+                backdrop.classList.add('opacity-0');
+
+                content.classList.remove('scale-100', 'opacity-100');
+                content.classList.add('scale-90', 'opacity-0');
+
+                setTimeout(() => {
+                    conModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>

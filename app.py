@@ -1,8 +1,10 @@
 from flask import Flask, render_template
+import os
 
 app = Flask(__name__)
 
 # 完整的展覽核心資料，圖片路徑對應 static 目錄下的本機檔案
+
 EXHIBITION_DATA = {
     "超級比一比": [
         {
@@ -24,8 +26,7 @@ EXHIBITION_DATA = {
             "location": "Palazzo Pitti, Florence, Italy",
             "desc": "文藝復興時期的畫家拉斐爾所畫的聖母與聖子，比起中世紀同樣的聖母題材繪畫有何不同呢？",
             "question": "💡 解答：拉斐爾的聖母展現了自然、柔和的「母性光輝」，去除了中世紀僵硬、制式化的神聖光環，人物變得更有溫度與「人味」。",
-            "img": "/static/大公爵聖母.jpg",
-            "audio": "/static/大公爵聖母語音.mp3"
+            "img": "/static/大公爵聖母.jpg"
         }
     ],
     "完美無所不在": [
@@ -34,21 +35,24 @@ EXHIBITION_DATA = {
             "location": "Scrovegni(Arena) Chapel, Padua, Italy",
             "desc": "喬托試圖表現出耶穌逝去的戲劇性時刻，讓人深深感受到畫中人物們的悲痛與哀悽。",
             "question": "💡 解答：喬托透過人物「痛苦扭曲的表情」、「誇張的肢體動作」，以及天空中天使們哀傷的姿態，生動傳達了真實且強烈的情感。",
-            "img": "/static/08哀悼耶穌.jpg"
+            "img": "/static/08哀悼耶穌.jpg",
+            "audio": "/static/哀悼耶穌.mp3"
         },
         {
             "id": "C-03", "title": "聖三位一體 The Trinity", "artist": "馬薩奇歐 Masaccio", "year": "1425-28",
             "location": "Santa Maria Novella, Florence, Italy",
             "desc": "這幅壁畫真實的就像牆面上鑿出一個空間，透視技法可以表現視覺上的幻象，在平面上創造出空間與距離感。",
             "question": "💡 解答：馬薩奇歐巧妙運用了「單點透視法」，透過拱門與柱子的線條向後方消失點延伸，在平面的牆壁上成功營造出深邃的立體空間錯覺。",
-            "img": "/static/09聖三位一體.jpg"
+            "img": "/static/09聖三位一體.jpg",
+            "audio": "/static/聖三位一體.mp3"
         },
         {
             "id": "C-04", "title": "聖馬諾之戰 The Battle of San Romano", "artist": "烏切羅 Uccello", "year": "1438-40",
             "location": "National Gallery, London, UK",
             "desc": "烏切羅為了追求真實，窮其一生都在鑽研透視技法，在這幅畫中他是如何運用的呢？仔細觀察地上的線索吧！",
             "question": "💡 解答：畫家將地上散落的「折斷長矛、武器與士兵倒下的方向」，刻意排列成指向消失點的透視線，引導觀眾的視覺深度。",
-            "img": "/static/10聖羅馬諾之戰.jpg"
+            "img": "/static/10聖羅馬諾之戰.jpg",
+            "audio": "/static/聖羅馬諾之戰.mp3"
         },
         {
             "id": "C-05", "title": "維納斯的誕生 The Birth of Venus", "artist": "波提切利 Botticelli", "year": "1484-86",
@@ -157,7 +161,8 @@ EXHIBITION_DATA = {
             "location": "San Pietro in Vincoli, Rome, Italy",
             "desc": "摩西是猶太民族的英雄領袖。米開朗基羅以一位智者的形象描繪他，栩栩如生的樣貌，可看出藝術家純熟的雕刻技術。",
             "question": "💡 解答：摩西的肌肉充滿張力，衣袍的皺褶深邃生動，加上頭上代表神聖與智慧的「角」，成功塑造出一位充滿威嚴的先知形象。",
-            "img": "/static/33摩西.jpg"
+            "img": "/static/33摩西.jpg",
+            "audio": "/static/摩西-米開朗基羅.mp3"
         },
         {
             "id": "E-08", "title": "創造亞當 The Creation of Adam", "artist": "米開朗基羅 Michelangelo", "year": "1511",
@@ -189,10 +194,64 @@ EXHIBITION_DATA = {
         }
     ]
 }
-
+# 首頁 (導覽樞紐)
 @app.route('/')
 def index():
-    return render_template('index.html', exhibition_data=EXHIBITION_DATA)
+    # 首頁現在很乾淨，不需要傳入 exhibition_data 了
+    return render_template('index.html')
+
+# (一) 廣達藝術小尖兵
+@app.route('/ambassadors.html')
+def ambassadors():
+    # 學生名單列表
+    students = [
+        {"name": "王小明", "image": "student1.jpg", "quote": "這是一段很棒的心得..."},
+        {"name": "李小華", "image": "student2.jpg", "quote": "這是一段很棒的心得..."},
+        {"name": "李小華", "image": "student2.jpg", "quote": "這是一段很棒的心得..."},
+        {"name": "李小華", "image": "student2.jpg", "quote": "這是一段很棒的心得..."},
+        {"name": "李小華", "image": "student2.jpg", "quote": "這是一段很棒的心得..."},
+        {"name": "李小華", "image": "student2.jpg", "quote": "這是一段很棒的心得..."},
+        {"name": "李小華", "image": "student2.jpg", "quote": "這是一段很棒的心得..."},
+        {"name": "李小華", "image": "student2.jpg", "quote": "這是一段很棒的心得..."},
+    ]
+
+    path_a = os.path.join(app.static_folder, 'a')
+    path_b = os.path.join(app.static_folder, 'b')
+
+    # 2. 自動讀取資料夾內的檔案，並過濾出圖片檔 (避免讀到隱藏檔)
+    images_a = []
+    if os.path.exists(path_a):
+        images_a = [f for f in os.listdir(path_a) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.webp'))]
+        images_a.sort()  # 照檔名排序
+
+    images_b = []
+    if os.path.exists(path_b):
+        images_b = [f for f in os.listdir(path_b) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.webp'))]
+        images_b.sort()  # 照檔名排序
+
+    # 3. 將檔名清單傳給網頁
+    return render_template('ambassadors.html',students=students, images_a=images_a, images_b=images_b)
+
+# (二) 義大利文藝復興作品
+@app.route('/artworks.html')
+def artworks():
+    # 這個頁面需要渲染作品網格，所以要把 EXHIBITION_DATA 傳給它！
+    return render_template('artworks.html', exhibition_data=EXHIBITION_DATA)
+
+# （三）展覽現場
+@app.route('/scene.html')
+def scene():
+    return render_template('scene.html')
+
+# （四）開幕典禮
+@app.route('/opening.html')
+def opening():
+    return render_template('opening.html')
+
+# （五）展覽與教學
+@app.route('/teaching.html')
+def teaching():
+    return render_template('teaching.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

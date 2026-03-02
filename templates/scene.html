@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>建置中 - 丹鳳高中展覽</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Noto Serif TC"', 'serif'],
+                    },
+                    colors: {
+                        primary: '#8C3B00',
+                        secondary: '#D99A5B',
+                        bglight: '#FCFBF9',
+                        cardbg: '#FFFFFF',
+                        textdark: '#1C1917',
+                        textmuted: '#57534E'
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'float': '0 20px 40px -10px rgba(0,0,0,0.15)',
+                    },
+                    animation: {
+                        'float-slow': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-bglight text-textdark font-sans antialiased overflow-hidden selection:bg-secondary/30">
+
+    <header class="absolute top-0 left-0 w-full pt-12 px-6 text-center z-10 fade-in-up">
+        <a href="{{ url_for('index') }}" class="inline-flex items-center gap-2 text-sm font-medium text-textmuted hover:text-primary transition-colors group">
+            <span class="group-hover:-translate-x-1 transition-transform">←</span> 返回導覽樞紐
+        </a>
+    </header>
+
+    <main class="h-[100dvh] w-full flex flex-col items-center justify-center px-5 relative">
+
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-secondary/5 rounded-full blur-3xl -z-10"></div>
+
+        <div class="text-center fade-in-up max-w-md w-full">
+
+            <div class="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full bg-cardbg shadow-float border border-black/[0.03] flex items-center justify-center mb-8 animate-float-slow">
+                <span class="text-5xl sm:text-6xl">⏳</span>
+            </div>
+
+            <div class="text-secondary mb-4 text-xl">✦</div>
+            <h1 class="font-serif text-3xl sm:text-4xl font-bold mb-4 text-textdark tracking-wide">
+                展區精心籌備中
+            </h1>
+            <div class="w-12 h-px bg-primary/30 mx-auto mb-6"></div>
+
+            <p class="text-[15px] sm:text-base text-textmuted leading-loose mb-10 text-center">
+                藝術的傑作需要時間雕琢。<br class="hidden sm:block">
+                此區塊的展覽內容正在進行最後的佈置與整理，<br class="hidden sm:block">
+                敬請期待即將呈現的精彩內容。
+            </p>
+
+            <a href="{{ url_for('index') }}" class="inline-block px-8 py-3.5 rounded-full bg-primary text-white font-medium text-sm shadow-md hover:bg-[#6b2c00] hover:shadow-lg active:scale-95 transition-all duration-300">
+                先去其他展區逛逛
+            </a>
+
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.05,
+                rootMargin: "0px 0px -20px 0px"
+            });
+            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
