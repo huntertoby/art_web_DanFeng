@@ -59,21 +59,25 @@ EXHIBITION_DATA = {
             "location": "Galleria degli Uffizi, Florence, Italy",
             "desc": "維納斯是希臘神話中代表「愛與美」的女神，這幅畫中波提切利描繪的維納斯形象，是不是顯得優雅又迷人呢？",
             "question": "💡 解答：維納斯呈現了文藝復興時期對完美的追求，具有柔美的S型曲線與略帶憂鬱的神情，完美融合了古典神話與當代美學。",
-            "img": "/static/11維納斯的誕生.jpg"
+            "img": "/static/11維納斯的誕生.jpg",
+            "audio": "/static/維納斯的誕生.mp3"
+
         },
         {
             "id": "C-06", "title": "天堂之門（局部） Porta del Paradiso", "artist": "吉貝爾蒂 Ghiberti", "year": "1425-52",
             "location": "Battistero di San Giovanni, Florence, Italy",
             "desc": "吉貝爾蒂以透視技法將場景及人物表現得很真實；他花了近30年才完成《天堂之門》的浮雕作品，是不是很驚人呢？",
             "question": "💡 解答：他運用了「高低起伏的浮雕技法」結合透視學，讓前景人物立體突出，背景建築則扁平細緻，在青銅板上創造出如繪畫般深遠的空間感。",
-            "img": "/static/12天堂之門(局部).jpg"
+            "img": "/static/12天堂之門(局部).jpg",
+            "audio": "/static/吉貝爾蒂-天堂之門.mp3"
         },
         {
             "id": "C-07", "title": "大衛像 David", "artist": "多那太羅 Donatello", "year": "1440",
             "location": "Museo Nazionale del Bargello, Florence, Italy",
             "desc": "多那太羅表現《聖經》故事中大衛取得勝利踩著巨人哥利亞的樣子，為了準確呈現人體構造，他還研究解剖學呢！",
             "question": "💡 解答：透過解剖學的研究，藝術家精準刻劃出大衛的「骨骼結構與肌肉線條」，完美展現了人體自然的比例與青春的力量美。",
-            "img": "/static/13大衛像.jpg"
+            "img": "/static/13大衛像.jpg",
+            "audio": "/static/多那太羅 聖喬治像.mp3"
         },
         {
             "id": "C-08", "title": "聖喬治像 St. George", "artist": "多那太羅 Donatello", "year": "1416-17",
@@ -154,7 +158,8 @@ EXHIBITION_DATA = {
             "location": "British Museum, London, UK",
             "desc": "聖子與聖母身體的親密交疊是文藝復興時期突破性的表現，這種表現方法，是不是給人更生動親切的感受呢？",
             "question": "💡 解答：米開朗基羅打破了傳統神聖莊嚴的距離感，將聖母與聖嬰描繪得就像平凡世間的母子互相依偎，展現了極具人性與溫度的深厚親情。",
-            "img": "/static/32聖母與聖嬰習作.jpg"
+            "img": "/static/32聖母與聖嬰習作.jpg",
+            "audio": "/static/聖母與聖嬰習作.mp3"
         },
         {
             "id": "E-07", "title": "摩西 Moses", "artist": "米開朗基羅 Michelangelo", "year": "1513-15",
@@ -169,14 +174,16 @@ EXHIBITION_DATA = {
             "location": "Sistine Chapel Ceiling, Musei Vaticani",
             "desc": "畫面中兩隻手交會的一瞬間，象徵上帝為人類注入滿滿的生命、智慧與力量，你是否感受到了那股能量呢？",
             "question": "💡 解答：兩人指尖即將觸碰的這「一公分的距離」，創造了極大的視覺張力與懸念，彷彿電流即將接通，完美具象化了生命傳遞的瞬間。",
-            "img": "/static/34創造亞當.jpg"
+            "img": "/static/34創造亞當.jpg",
+            "audio": "/static/創造亞當.mp3"
         },
         {
             "id": "E-09", "title": "最後的審判 The Last Judgment", "artist": "米開朗基羅 Michelangelo", "year": "1537-41",
             "location": "Sistine Chapel , Musei Vaticani",
             "desc": "「最後的審判」是聖經故事，描繪末日來臨的景象，仔細觀察畫面中蘊藏了多少故事？找找看，米開朗基羅也將自己畫在裡面喔！",
             "question": "💡 解答：在耶穌右下方，殉道者聖巴托羅繆手裡提著一張「被剝下來的人皮」，那張人皮痛苦扭曲的臉孔，其實就是米開朗基羅的自畫像。",
-            "img": "/static/35最後的審判.jpg"
+            "img": "/static/35最後的審判.jpg",
+            "audio": "/static/最後的審判.mp3"
         },
         {
             "id": "E-10", "title": "雅典學院 School of Athens", "artist": "拉斐爾 Raphael Santi", "year": "1510-11",

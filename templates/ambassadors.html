@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>(一) 廣達藝術小尖兵 - 丹鳳高中展覽</title>
+    <title>廣達藝術小尖兵成員 - 丹鳳高中展覽</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -48,7 +48,7 @@
             <span class="group-hover:-translate-x-1 transition-transform">←</span> 返回導覽樞紐
         </a>
         <h1 class="font-serif text-3xl sm:text-4xl font-bold mb-4 text-textdark">
-            (一) 廣達藝術小尖兵
+            廣達藝術小尖兵
         </h1>
         <div class="w-16 h-px bg-primary/30 mx-auto"></div>
     </header>
@@ -58,7 +58,7 @@
         <section class="mb-24">
             <div class="mb-10 text-center fade-in-up">
                 <span class="text-secondary text-2xl mb-2 block">✦</span>
-                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-textdark">小尖兵心得分享</h2>
+                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-textdark">成員介紹</h2>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -67,9 +67,6 @@
                 <div class="bg-cardbg p-6 rounded-2xl shadow-soft border border-black/[0.03] fade-in-up hover:-translate-y-1 transition-transform duration-300 flex flex-col">
                     <div class="relative w-24 h-24 mx-auto mb-5 flex-shrink-0">
                         <img src="{{ url_for('static', filename='students/' + student.image) }}" alt="{{ student.name }}" class="w-full h-full object-cover rounded-full border-2 border-secondary/20 p-1 bg-white">
-                        <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm shadow-md">
-                            ❝
-                        </div>
                     </div>
                     <h3 class="font-serif font-bold text-lg text-center text-textdark mb-3">{{ student.name }}</h3>
                     <p class="text-textmuted text-sm leading-relaxed text-justify relative z-10 flex-grow">
@@ -86,7 +83,7 @@
         <section>
             <div class="mb-12 text-center fade-in-up">
                 <span class="text-secondary text-2xl mb-2 block">📚</span>
-                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-textdark">培訓課程紀錄</h2>
+                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-textdark">藝術小尖兵培訓課程</h2>
             </div>
 
             <div class="mb-20 fade-in-up">
