@@ -96,7 +96,7 @@
 
                         <button
                             id="art-btn-{{ item.id }}"
-                            onclick="openArtworkModal('{{ item.title | replace("'", "\\'") }}', '{{ item.artist | replace("'", "\\'") }}', '{{ item.year }}', '{{ item.location | replace("'", "\\'") }}', '{{ item.desc | replace("'", "\\'") }}', '{{ item.question | replace("'", "\\'") }}', '{{ item.img }}', '{{ item.audio | default('') }}')"
+                            onclick="openArtworkModal('{{ item.title | replace("'", "\\'") }}', '{{ item.artist | replace("'", "\\'") }}', '{{ item.year }}', '{{ item.location | replace("'", "\\'") }}', '{{ item.desc | replace("'", "\\'") }}', '{{ item.question | replace("'", "\\'") }}', '{{ item.img }}', '{{ item.audio | default('') }}', '{{ item.student_name | default('') }}')"
                             class="w-full py-3.5 rounded-xl bg-bglight text-textdark font-medium text-sm border border-gray-200 active:bg-primary active:text-white transition-colors flex items-center justify-center gap-2 group-hover:border-primary/30">
                             <span class="text-primary text-base">✦</span> 探索細節
                         </button>
@@ -144,7 +144,7 @@
                 <div id="modalAudioContainer" class="mb-7 hidden">
                     <div class="flex items-center gap-2 mb-3">
                         <span class="text-secondary text-lg">🎧</span>
-                        <h4 class="text-sm font-bold text-textdark">學生語音導覽</h4>
+                        <h4 id="modalAudioTitle" class="text-sm font-bold text-textdark">學生語音導覽</h4>
                     </div>
                     <audio id="modalAudio" controls class="w-full outline-none shadow-sm">
                         您的瀏覽器不支援音訊播放。
@@ -207,7 +207,6 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // 滑入動畫觀察器
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -221,7 +220,6 @@
             });
             document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 
-            // 讀取網址 URL 參數，自動開啟指定畫作 Modal
             const urlParams = new URLSearchParams(window.location.search);
             const artId = urlParams.get('art');
 
@@ -236,7 +234,6 @@
             }
         });
 
-        // 解謎卡片的點擊翻牌功能
         function revealQuestion() {
             const overlay = document.getElementById('questionOverlay');
             const content = document.getElementById('questionContent');
@@ -248,8 +245,8 @@
             content.classList.add('opacity-100', 'blur-none');
         }
 
-        // 開啟畫作 Modal
-        function openArtworkModal(title, artist, year, location, desc, question, img, audioSrc) {
+        // 開啟畫作 Modal (新增 studentName 參數)
+        function openArtworkModal(title, artist, year, location, desc, question, img, audioSrc, studentName) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalArtistYear').textContent = `${artist} | ${year}`;
 
@@ -281,10 +278,19 @@
 
             document.getElementById('modalImg').src = img;
 
+            // 處理音檔與學生名字顯示
             const audioContainer = document.getElementById('modalAudioContainer');
             const audioEl = document.getElementById('modalAudio');
+            const audioTitle = document.getElementById('modalAudioTitle'); // 抓取標題元素
+
             if (audioSrc && audioSrc.trim() !== "") {
                 audioEl.src = audioSrc;
+                // 如果有提供學生姓名，就套用格式；沒有的話防呆顯示預設文字
+                if (studentName && studentName.trim() !== "") {
+                    audioTitle.textContent = `藝術小尖兵(${studentName})語音導覽`;
+                } else {
+                    audioTitle.textContent = "學生語音導覽";
+                }
                 audioContainer.style.display = 'block';
             } else {
                 audioEl.pause();
@@ -308,7 +314,6 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // 開啟展覽意義 Modal
         function openConclusionModal() {
             const modal = document.getElementById('conclusionModal');
             const backdrop = document.getElementById('conclusionBackdrop');
@@ -322,7 +327,6 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // 關閉所有 Modal
         function closeModals() {
             const audioEl = document.getElementById('modalAudio');
             if (audioEl) {

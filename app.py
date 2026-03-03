@@ -13,7 +13,8 @@ EXHIBITION_DATA = {
             "desc": "畫中表情莊嚴的聖母與聖子，襯上金光閃閃的背景，是不是讓人感受到中世紀畫家想強調對宗教人物的敬仰呢？",
             "question": "💡 解答：中世紀畫家常使用「金光閃閃的背景」與「莊嚴無表情的面容」，來襯托並強調宗教人物的崇高、神聖與不可侵犯。",
             "img": "/static/04聖母與聖子.jpg",
-            "audio": "/static/第一 聖母與聖子.mp3"
+            "audio": "/static/第一 聖母與聖子.mp3",
+            "student_name": "宬譯"  # <--- 新增這行
         },
         {
             "id": "B-03", "title": "聖母子與天使 Madonna Enthroned", "artist": "奇馬布伊 Cimabue", "year": "約1290",
@@ -21,7 +22,8 @@ EXHIBITION_DATA = {
             "desc": "坐在椅子上的聖母與聖子與身旁圍繞的天使與聖徒，讓畫面呈現空間感，但人物大小與位置安排有點奇怪，找找看有哪些不合理的地方？",
             "question": "💡 解答：畫中的「人物大小代表了其身分地位」（聖母最大，天使與聖徒較小），畫家尚未完全掌握真實的透視遠近比例，因此顯得有些不自然。",
             "img": "/static/05聖母子與天使.jpg",
-            "audio": "/static/第二 聖母子與天使.mp3"
+            "audio": "/static/第二 聖母子與天使.mp3",
+            "student_name": "宬譯"
         },
         {
             "id": "B-04", "title": "大公爵聖母 The Grand Duke’s Madonna", "artist": "拉斐爾 Raphael Santi", "year": "1504-05",
@@ -29,7 +31,8 @@ EXHIBITION_DATA = {
             "desc": "文藝復興時期的畫家拉斐爾所畫的聖母與聖子，比起中世紀同樣的聖母題材繪畫有何不同呢？",
             "question": "💡 解答：拉斐爾的聖母展現了自然、柔和的「母性光輝」，去除了中世紀僵硬、制式化的神聖光環，人物變得更有溫度與「人味」。",
             "img": "/static/大公爵聖母.jpg",
-            "audio": "/static/第三 大公爵聖母.mp3"
+            "audio": "/static/第三 大公爵聖母.mp3",
+            "student_name": "宬譯"
         }
     ],
     "完美無所不在": [
@@ -39,7 +42,8 @@ EXHIBITION_DATA = {
             "desc": "喬托試圖表現出耶穌逝去的戲劇性時刻，讓人深深感受到畫中人物們的悲痛與哀悽。",
             "question": "💡 解答：喬托透過人物「痛苦扭曲的表情」、「誇張的肢體動作」，以及天空中天使們哀傷的姿態，生動傳達了真實且強烈的情感。",
             "img": "/static/08哀悼耶穌.jpg",
-            "audio": "/static/哀悼耶穌.mp3"
+            "audio": "/static/哀悼耶穌.mp3",
+            "student_name": "軒卉"
         },
         {
             "id": "C-03", "title": "聖三位一體 The Trinity", "artist": "馬薩奇歐 Masaccio", "year": "1425-28",
@@ -47,7 +51,8 @@ EXHIBITION_DATA = {
             "desc": "這幅壁畫真實的就像牆面上鑿出一個空間，透視技法可以表現視覺上的幻象，在平面上創造出空間與距離感。",
             "question": "💡 解答：馬薩奇歐巧妙運用了「單點透視法」，透過拱門與柱子的線條向後方消失點延伸，在平面的牆壁上成功營造出深邃的立體空間錯覺。",
             "img": "/static/09聖三位一體.jpg",
-            "audio": "/static/聖三位一體.mp3"
+            "audio": "/static/聖三位一體.mp3",
+            "student_name": "軒卉"
         },
         {
             "id": "C-04", "title": "聖馬諾之戰 The Battle of San Romano", "artist": "烏切羅 Uccello", "year": "1438-40",
@@ -55,7 +60,8 @@ EXHIBITION_DATA = {
             "desc": "烏切羅為了追求真實，窮其一生都在鑽研透視技法，在這幅畫中他是如何運用的呢？仔細觀察地上的線索吧！",
             "question": "💡 解答：畫家將地上散落的「折斷長矛、武器與士兵倒下的方向」，刻意排列成指向消失點的透視線，引導觀眾的視覺深度。",
             "img": "/static/10聖羅馬諾之戰.jpg",
-            "audio": "/static/聖羅馬諾之戰.mp3"
+            "audio": "/static/聖羅馬諾之戰.mp3",
+            "student_name": "軒卉"
         },
         {
             "id": "C-05", "title": "維納斯的誕生 The Birth of Venus", "artist": "波提切利 Botticelli", "year": "1484-86",
@@ -63,7 +69,8 @@ EXHIBITION_DATA = {
             "desc": "維納斯是希臘神話中代表「愛與美」的女神，這幅畫中波提切利描繪的維納斯形象，是不是顯得優雅又迷人呢？",
             "question": "💡 解答：維納斯呈現了文藝復興時期對完美的追求，具有柔美的S型曲線與略帶憂鬱的神情，完美融合了古典神話與當代美學。",
             "img": "/static/11維納斯的誕生.jpg",
-            "audio": "/static/維納斯的誕生.mp3"
+            "audio": "/static/維納斯的誕生.mp3",
+            "student_name": "啟鈞"
 
         },
         {
@@ -72,7 +79,8 @@ EXHIBITION_DATA = {
             "desc": "吉貝爾蒂以透視技法將場景及人物表現得很真實；他花了近30年才完成《天堂之門》的浮雕作品，是不是很驚人呢？",
             "question": "💡 解答：他運用了「高低起伏的浮雕技法」結合透視學，讓前景人物立體突出，背景建築則扁平細緻，在青銅板上創造出如繪畫般深遠的空間感。",
             "img": "/static/12天堂之門(局部).jpg",
-            "audio": "/static/吉貝爾蒂-天堂之門.mp3"
+            "audio": "/static/吉貝爾蒂-天堂之門.mp3",
+            "student_name": "啟鈞"
         },
         {
             "id": "C-07", "title": "大衛像 David", "artist": "多那太羅 Donatello", "year": "1440",
@@ -80,7 +88,8 @@ EXHIBITION_DATA = {
             "desc": "多那太羅表現《聖經》故事中大衛取得勝利踩著巨人哥利亞的樣子，為了準確呈現人體構造，他還研究解剖學呢！",
             "question": "💡 解答：透過解剖學的研究，藝術家精準刻劃出大衛的「骨骼結構與肌肉線條」，完美展現了人體自然的比例與青春的力量美。",
             "img": "/static/13大衛像.jpg",
-            "audio": "/static/4.大衛-多那太羅.mp3"
+            "audio": "/static/4.大衛-多那太羅.mp3",
+            "student_name": "丹妮"
         },
         {
             "id": "C-08", "title": "聖喬治像 St. George", "artist": "多那太羅 Donatello", "year": "1416-17",
@@ -88,7 +97,8 @@ EXHIBITION_DATA = {
             "desc": "「聖喬治屠龍」是西方流傳的古老傳說；聖喬治即將出發拯救被惡龍攻擊的村莊，你感受到他臉上那股意氣風發的自信嗎？",
             "question": "💡 解答：聖喬治直視前方的堅定眼神，加上挺拔的站姿與緊握盾牌的雙手，完美詮釋了充滿勇氣、蓄勢待發的英雄氣概。",
             "img": "/static/14聖喬治像.jpg",
-            "audio": "/static/多那太羅 聖喬治像.mp3"
+            "audio": "/static/多那太羅 聖喬治像.mp3",
+            "student_name": "啟鈞"
         },
         {
             "id": "C-09", "title": "聖母百花大教堂(圓頂)", "artist": "布魯內利奇 Filippo Brunelleschi", "year": "1419-36",
@@ -112,7 +122,8 @@ EXHIBITION_DATA = {
             "desc": "這件作品表現出藝術家細膩的情感與高超技巧，為了讓大家記住，藝術家還刻上自己的大名，找找看在哪裡呢？",
             "question": "💡 解答：米開朗基羅將自己的名字刻在「聖母胸前的一條斜披帶」上，這也是他一生中唯一一件有留下簽名的驕傲之作。",
             "img": "/static/21聖殤.jpg",
-            "audio": "/static/1.米開朗基羅-聖殤.mp3"
+            "audio": "/static/1.米開朗基羅-聖殤.mp3",
+            "student_name": "丹妮"
         },
         {
             "id": "D-03", "title": "大衛 David", "artist": "米開朗基羅 Michelangelo", "year": "1501-04",
@@ -120,7 +131,8 @@ EXHIBITION_DATA = {
             "desc": "米開朗基羅擅長以完美的肌肉線條來表現人體的力量感，大衛側身站立，迎面而戰巨人哥利亞，隨著他的眼神看去，氣勢凌人。",
             "question": "💡 解答：米開朗基羅捕捉了大衛「戰鬥前一刻的緊繃狀態」，頸部爆出的青筋、深邃堅定的眼神與蓄勢待發的肌肉，充滿了力量感。",
             "img": "/static/23大衛.jpg",
-            "audio": "/static/3.大衛-米開朗基羅.mp3"
+            "audio": "/static/3.大衛-米開朗基羅.mp3",
+            "student_name": "丹妮"
         },
         {
             "id": "D-04", "title": "聖彼得教堂圓頂設計草稿", "artist": "米開朗基羅 Michelangelo", "year": "1546",
@@ -128,7 +140,8 @@ EXHIBITION_DATA = {
             "desc": "米開朗基羅繪製了許多圓頂建築草圖，比比看和聖母百花大教堂有何不同？",
             "question": "💡 解答：相較於百花大教堂的八角形輪廓，米開朗基羅設計的聖彼得大教堂圓頂更加「飽滿、圓潤」，並加入了華麗的雙柱支撐，展現盛期文藝復興的宏偉。",
             "img": "/static/25聖彼得教堂圓頂設計草稿.jpg",
-            "audio": "/static/2.聖彼得大教堂圓頂設計草稿.mp3"
+            "audio": "/static/2.聖彼得大教堂圓頂設計草稿.mp3",
+            "student_name": "丹妮"
         }
     ],
     "天才達人大集合": [
@@ -138,7 +151,8 @@ EXHIBITION_DATA = {
             "desc": "這是達文西所畫的人體比例圖，找找看其中藏著什麼完美比例呢？下方的筆記文字，又有何特別之處？",
             "question": "💡 解答：圖中人體張開雙手雙腳，恰好能完美內接於「一個圓形與一個正方形」之中；而下方的筆記則是達文西特有的防窺「鏡像反寫字」。",
             "img": "/static/28維特魯威人.jpg",
-            "audio": "/static/維特魯威人.mp3"
+            "audio": "/static/維特魯威人.mp3",
+            "student_name": "湘慈"
         },
         {
             "id": "E-03", "title": "蒙娜麗莎 Mona Lisa", "artist": "達文西 Leonardo da Vinci", "year": "1503-06",
@@ -146,7 +160,8 @@ EXHIBITION_DATA = {
             "desc": "蒙娜麗莎的那一抹淺淺微笑，你知道藝術家施了什麼樣的魔法嗎？你可以說出這幅畫還蘊藏了多少精采故事呢？",
             "question": "💡 解答：達文西首創了「暈塗法」（Sfumato），像煙霧般模糊了眼角與嘴角的輪廓線，讓神情看起來若隱若現，產生了這抹神祕的微笑。",
             "img": "/static/29蒙娜麗莎.jpg",
-            "audio": "/static/蒙娜麗莎.mp3"
+            "audio": "/static/蒙娜麗莎.mp3",
+            "student_name": "湘慈"
         },
         {
             "id": "E-04", "title": "最後的晚餐 The Last Supper", "artist": "達文西 Leonardo da Vinci", "year": "1495-98",
@@ -154,7 +169,8 @@ EXHIBITION_DATA = {
             "desc": "你知道「最後的晚餐」這個聖經故事嗎？達文西描繪這個極富戲劇性的情節，找找看誰是那個出賣耶穌的人呢？",
             "question": "💡 解答：出賣耶穌的猶大，正是畫面中「右手緊緊握著錢袋」，身體因為驚恐與心虛而微微向後退縮的那個人（位於耶穌右側第二個）。",
             "img": "/static/30最後的晚餐.jpg",
-            "audio": "/static/最後的晚餐.mp3"
+            "audio": "/static/最後的晚餐.mp3",
+            "student_name": "湘慈"
         },
         {
             "id": "E-05", "title": "飛行器 Macchina Volante", "artist": "達文西 Leonardo da Vinci", "year": "1505",
@@ -162,7 +178,8 @@ EXHIBITION_DATA = {
             "desc": "達文西懷抱著飛行夢，所以他花了許多時間設計草稿，你是否也有什麼天馬行空的想像與發明呢？",
             "question": "💡 解答：達文西仔細觀察了「鳥類與蝙蝠的翅膀構造」，將仿生學的概念畫進了設計圖中，展現了他結合藝術觀察與科學工程的驚人天賦。",
             "img": "/static/31飛行器.jpg",
-            "audio": "/static/飛行器.mp3"
+            "audio": "/static/飛行器.mp3",
+            "student_name": "湘慈"
         },
         {
             "id": "E-06", "title": "聖母與聖嬰習作", "artist": "米開朗基羅 Michelangelo", "year": "1530-32",
@@ -170,7 +187,8 @@ EXHIBITION_DATA = {
             "desc": "聖子與聖母身體的親密交疊是文藝復興時期突破性的表現，這種表現方法，是不是給人更生動親切的感受呢？",
             "question": "💡 解答：米開朗基羅打破了傳統神聖莊嚴的距離感，將聖母與聖嬰描繪得就像平凡世間的母子互相依偎，展現了極具人性與溫度的深厚親情。",
             "img": "/static/32聖母與聖嬰習作.jpg",
-            "audio": "/static/聖母與聖嬰習作.mp3"
+            "audio": "/static/聖母與聖嬰習作.mp3",
+            "student_name": "品孜"
         },
         {
             "id": "E-07", "title": "摩西 Moses", "artist": "米開朗基羅 Michelangelo", "year": "1513-15",
@@ -178,7 +196,8 @@ EXHIBITION_DATA = {
             "desc": "摩西是猶太民族的英雄領袖。米開朗基羅以一位智者的形象描繪他，栩栩如生的樣貌，可看出藝術家純熟的雕刻技術。",
             "question": "💡 解答：摩西的肌肉充滿張力，衣袍的皺褶深邃生動，加上頭上代表神聖與智慧的「角」，成功塑造出一位充滿威嚴的先知形象。",
             "img": "/static/33摩西.jpg",
-            "audio": "/static/摩西-米開朗基羅.mp3"
+            "audio": "/static/摩西-米開朗基羅.mp3",
+            "student_name": "品孜"
         },
         {
             "id": "E-08", "title": "創造亞當 The Creation of Adam", "artist": "米開朗基羅 Michelangelo", "year": "1511",
@@ -186,7 +205,8 @@ EXHIBITION_DATA = {
             "desc": "畫面中兩隻手交會的一瞬間，象徵上帝為人類注入滿滿的生命、智慧與力量，你是否感受到了那股能量呢？",
             "question": "💡 解答：兩人指尖即將觸碰的這「一公分的距離」，創造了極大的視覺張力與懸念，彷彿電流即將接通，完美具象化了生命傳遞的瞬間。",
             "img": "/static/34創造亞當.jpg",
-            "audio": "/static/創造亞當.mp3"
+            "audio": "/static/創造亞當.mp3",
+            "student_name": "品孜"
         },
         {
             "id": "E-09", "title": "最後的審判 The Last Judgment", "artist": "米開朗基羅 Michelangelo", "year": "1537-41",
@@ -194,7 +214,8 @@ EXHIBITION_DATA = {
             "desc": "「最後的審判」是聖經故事，描繪末日來臨的景象，仔細觀察畫面中蘊藏了多少故事？找找看，米開朗基羅也將自己畫在裡面喔！",
             "question": "💡 解答：在耶穌右下方，殉道者聖巴托羅繆手裡提著一張「被剝下來的人皮」，那張人皮痛苦扭曲的臉孔，其實就是米開朗基羅的自畫像。",
             "img": "/static/35最後的審判.jpg",
-            "audio": "/static/最後的審判.mp3"
+            "audio": "/static/最後的審判.mp3",
+            "student_name": "品孜"
         },
         {
             "id": "E-10", "title": "雅典學院 School of Athens", "artist": "拉斐爾 Raphael Santi", "year": "1510-11",
@@ -223,8 +244,8 @@ def index():
 def ambassadors():
     # 學生名單列表
     students = [
-        {"name": "王小明", "image": "student1.jpg", "quote": "這是一段很棒的心得..."},
-        {"name": "李小華", "image": "student2.jpg", "quote": "這是一段很棒的心得..."},
+        {"name": "蔡軒卉", "image": "02S.jpg", "quote": "提升自己的藝術涵養 增加導覽經驗 瞭解畫作中的歷史非常的有趣 在此期間還去了美術館 欣賞了許多的畫作以及聆聽導覽人員專業的講解！布展雖然艱辛 但！看起來非常的好看"},
+        {"name": "洪啟鈞", "image": "01S.jpg", "quote": "我覺得參加小尖兵活動很考驗自己對人事物的表達方式 記住！怯場沒關係 從恐懼中戰勝它 專心一致 認真報告(聽說認真的男人墜帥呢！)(必須是我✌🏻)"},
         {"name": "李小華", "image": "student2.jpg", "quote": "這是一段很棒的心得..."},
         {"name": "李小華", "image": "student2.jpg", "quote": "這是一段很棒的心得..."},
         {"name": "李小華", "image": "student2.jpg", "quote": "這是一段很棒的心得..."},
