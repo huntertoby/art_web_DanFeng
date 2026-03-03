@@ -62,7 +62,6 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
                 {% for student in students %}
                 <div class="bg-cardbg p-6 rounded-2xl shadow-soft border border-black/[0.03] fade-in-up hover:-translate-y-1 transition-transform duration-300 flex flex-col">
                     <div class="relative w-24 h-24 mx-auto mb-5 flex-shrink-0">
@@ -74,7 +73,6 @@
                     </p>
                 </div>
                 {% endfor %}
-
             </div>
         </section>
 
@@ -100,7 +98,7 @@
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
                     {% for img_name in images_a %}
                     <div class="aspect-square rounded-xl overflow-hidden bg-gray-100 group shadow-sm border border-black/[0.03]">
-                        <img src="{{ url_for('static', filename='a/' + img_name) }}" alt="美術館參訪照片" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cursor-pointer">
+                        <img src="{{ url_for('static', filename='a/' + img_name) }}" alt="美術館參訪照片" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cursor-pointer" onclick="openLightbox(this.src)">
                     </div>
                     {% endfor %}
                 </div>
@@ -125,7 +123,7 @@
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
                     {% for img_name in images_b %}
                     <div class="aspect-video sm:aspect-square rounded-xl overflow-hidden bg-gray-100 group shadow-sm border border-black/[0.03]">
-                        <img src="{{ url_for('static', filename='b/' + img_name) }}" alt="導覽培訓照片" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cursor-pointer">
+                        <img src="{{ url_for('static', filename='b/' + img_name) }}" alt="導覽培訓照片" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cursor-pointer" onclick="openLightbox(this.src)">
                     </div>
                     {% endfor %}
                 </div>
@@ -135,8 +133,15 @@
 
     </main>
 
+    <div id="imageLightbox" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-8 bg-black/90 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
+        <button class="absolute top-4 right-4 sm:top-8 sm:right-8 text-white/50 hover:text-white w-12 h-12 flex items-center justify-center text-4xl sm:text-5xl transition-colors z-[110]" aria-label="關閉" onclick="closeLightbox()">&times;</button>
+
+        <img id="lightboxImg" src="" alt="放大檢視" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // 滑入顯示動畫觀察器
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -149,6 +154,57 @@
                 rootMargin: "0px 0px -20px 0px"
             });
             document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+        });
+
+        // 打開燈箱
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+
+            // 設定圖片路徑
+            lightboxImg.src = imageSrc;
+
+            // 顯示元素
+            lightbox.classList.remove('hidden');
+            void lightbox.offsetWidth; // 觸發重繪以播放動畫
+
+            // 執行淡入與放大動畫
+            lightbox.classList.remove('opacity-0');
+            lightbox.classList.add('opacity-100');
+            lightboxImg.classList.remove('scale-95');
+            lightboxImg.classList.add('scale-100');
+
+            // 鎖定背景滾動
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 關閉燈箱
+        function closeLightbox() {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+
+            // 執行淡出與縮小動畫
+            lightbox.classList.remove('opacity-100');
+            lightbox.classList.add('opacity-0');
+            lightboxImg.classList.remove('scale-100');
+            lightboxImg.classList.add('scale-95');
+
+            // 等待動畫結束 (300ms) 後隱藏元素並清空圖片
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightboxImg.src = '';
+                document.body.style.overflow = 'auto'; // 恢復背景滾動
+            }, 300);
+        }
+
+        // 監聽鍵盤 ESC 鍵來關閉燈箱
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                const lightbox = document.getElementById('imageLightbox');
+                if (!lightbox.classList.contains('hidden')) {
+                    closeLightbox();
+                }
+            }
         });
     </script>
 </body>
