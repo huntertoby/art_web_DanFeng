@@ -12,21 +12,24 @@ EXHIBITION_DATA = {
             "location": "Basilica di San Marco, Venice, Italy",
             "desc": "畫中表情莊嚴的聖母與聖子，襯上金光閃閃的背景，是不是讓人感受到中世紀畫家想強調對宗教人物的敬仰呢？",
             "question": "💡 解答：中世紀畫家常使用「金光閃閃的背景」與「莊嚴無表情的面容」，來襯托並強調宗教人物的崇高、神聖與不可侵犯。",
-            "img": "/static/04聖母與聖子.jpg"
+            "img": "/static/04聖母與聖子.jpg",
+            "audio": "/static/第一 聖母與聖子.mp3"
         },
         {
             "id": "B-03", "title": "聖母子與天使 Madonna Enthroned", "artist": "奇馬布伊 Cimabue", "year": "約1290",
             "location": "Galleria degli Uffizi, Florence, Italy",
             "desc": "坐在椅子上的聖母與聖子與身旁圍繞的天使與聖徒，讓畫面呈現空間感，但人物大小與位置安排有點奇怪，找找看有哪些不合理的地方？",
             "question": "💡 解答：畫中的「人物大小代表了其身分地位」（聖母最大，天使與聖徒較小），畫家尚未完全掌握真實的透視遠近比例，因此顯得有些不自然。",
-            "img": "/static/05聖母子與天使.jpg"
+            "img": "/static/05聖母子與天使.jpg",
+            "audio": "/static/第二 聖母子與天使.mp3"
         },
         {
             "id": "B-04", "title": "大公爵聖母 The Grand Duke’s Madonna", "artist": "拉斐爾 Raphael Santi", "year": "1504-05",
             "location": "Palazzo Pitti, Florence, Italy",
             "desc": "文藝復興時期的畫家拉斐爾所畫的聖母與聖子，比起中世紀同樣的聖母題材繪畫有何不同呢？",
             "question": "💡 解答：拉斐爾的聖母展現了自然、柔和的「母性光輝」，去除了中世紀僵硬、制式化的神聖光環，人物變得更有溫度與「人味」。",
-            "img": "/static/大公爵聖母.jpg"
+            "img": "/static/大公爵聖母.jpg",
+            "audio": "/static/第三 大公爵聖母.mp3"
         }
     ],
     "完美無所不在": [
@@ -77,14 +80,15 @@ EXHIBITION_DATA = {
             "desc": "多那太羅表現《聖經》故事中大衛取得勝利踩著巨人哥利亞的樣子，為了準確呈現人體構造，他還研究解剖學呢！",
             "question": "💡 解答：透過解剖學的研究，藝術家精準刻劃出大衛的「骨骼結構與肌肉線條」，完美展現了人體自然的比例與青春的力量美。",
             "img": "/static/13大衛像.jpg",
-            "audio": "/static/多那太羅 聖喬治像.mp3"
+            "audio": "/static/4.大衛-多那太羅.mp3"
         },
         {
             "id": "C-08", "title": "聖喬治像 St. George", "artist": "多那太羅 Donatello", "year": "1416-17",
             "location": "Museo Nazionale del Bargello, Florence, Italy",
             "desc": "「聖喬治屠龍」是西方流傳的古老傳說；聖喬治即將出發拯救被惡龍攻擊的村莊，你感受到他臉上那股意氣風發的自信嗎？",
             "question": "💡 解答：聖喬治直視前方的堅定眼神，加上挺拔的站姿與緊握盾牌的雙手，完美詮釋了充滿勇氣、蓄勢待發的英雄氣概。",
-            "img": "/static/14聖喬治像.jpg"
+            "img": "/static/14聖喬治像.jpg",
+            "audio": "/static/多那太羅 聖喬治像.mp3"
         },
         {
             "id": "C-09", "title": "聖母百花大教堂(圓頂)", "artist": "布魯內利奇 Filippo Brunelleschi", "year": "1419-36",
@@ -107,21 +111,24 @@ EXHIBITION_DATA = {
             "location": "St. Peter's Basilica, Vatican City",
             "desc": "這件作品表現出藝術家細膩的情感與高超技巧，為了讓大家記住，藝術家還刻上自己的大名，找找看在哪裡呢？",
             "question": "💡 解答：米開朗基羅將自己的名字刻在「聖母胸前的一條斜披帶」上，這也是他一生中唯一一件有留下簽名的驕傲之作。",
-            "img": "/static/21聖殤.jpg"
+            "img": "/static/21聖殤.jpg",
+            "audio": "/static/1.米開朗基羅-聖殤.mp3"
         },
         {
             "id": "D-03", "title": "大衛 David", "artist": "米開朗基羅 Michelangelo", "year": "1501-04",
             "location": "Galleria dell'Accademia, Florence, Italy",
             "desc": "米開朗基羅擅長以完美的肌肉線條來表現人體的力量感，大衛側身站立，迎面而戰巨人哥利亞，隨著他的眼神看去，氣勢凌人。",
             "question": "💡 解答：米開朗基羅捕捉了大衛「戰鬥前一刻的緊繃狀態」，頸部爆出的青筋、深邃堅定的眼神與蓄勢待發的肌肉，充滿了力量感。",
-            "img": "/static/23大衛.jpg"
+            "img": "/static/23大衛.jpg",
+            "audio": "/static/3.大衛-米開朗基羅.mp3"
         },
         {
             "id": "D-04", "title": "聖彼得教堂圓頂設計草稿", "artist": "米開朗基羅 Michelangelo", "year": "1546",
             "location": "Study for St. Peter’s Dome",
             "desc": "米開朗基羅繪製了許多圓頂建築草圖，比比看和聖母百花大教堂有何不同？",
             "question": "💡 解答：相較於百花大教堂的八角形輪廓，米開朗基羅設計的聖彼得大教堂圓頂更加「飽滿、圓潤」，並加入了華麗的雙柱支撐，展現盛期文藝復興的宏偉。",
-            "img": "/static/25聖彼得教堂圓頂設計草稿.jpg"
+            "img": "/static/25聖彼得教堂圓頂設計草稿.jpg",
+            "audio": "/static/2.聖彼得大教堂圓頂設計草稿.mp3"
         }
     ],
     "天才達人大集合": [
@@ -130,28 +137,32 @@ EXHIBITION_DATA = {
             "location": "Galleria dell’Accademia, Venice, Italy",
             "desc": "這是達文西所畫的人體比例圖，找找看其中藏著什麼完美比例呢？下方的筆記文字，又有何特別之處？",
             "question": "💡 解答：圖中人體張開雙手雙腳，恰好能完美內接於「一個圓形與一個正方形」之中；而下方的筆記則是達文西特有的防窺「鏡像反寫字」。",
-            "img": "/static/28維特魯威人.jpg"
+            "img": "/static/28維特魯威人.jpg",
+            "audio": "/static/維特魯威人.mp3"
         },
         {
             "id": "E-03", "title": "蒙娜麗莎 Mona Lisa", "artist": "達文西 Leonardo da Vinci", "year": "1503-06",
             "location": "Louvre, Paris, France",
             "desc": "蒙娜麗莎的那一抹淺淺微笑，你知道藝術家施了什麼樣的魔法嗎？你可以說出這幅畫還蘊藏了多少精采故事呢？",
             "question": "💡 解答：達文西首創了「暈塗法」（Sfumato），像煙霧般模糊了眼角與嘴角的輪廓線，讓神情看起來若隱若現，產生了這抹神祕的微笑。",
-            "img": "/static/29蒙娜麗莎.jpg"
+            "img": "/static/29蒙娜麗莎.jpg",
+            "audio": "/static/蒙娜麗莎.mp3"
         },
         {
             "id": "E-04", "title": "最後的晚餐 The Last Supper", "artist": "達文西 Leonardo da Vinci", "year": "1495-98",
             "location": "Santa Maria della Grazie, Milan, Italy",
             "desc": "你知道「最後的晚餐」這個聖經故事嗎？達文西描繪這個極富戲劇性的情節，找找看誰是那個出賣耶穌的人呢？",
             "question": "💡 解答：出賣耶穌的猶大，正是畫面中「右手緊緊握著錢袋」，身體因為驚恐與心虛而微微向後退縮的那個人（位於耶穌右側第二個）。",
-            "img": "/static/30最後的晚餐.jpg"
+            "img": "/static/30最後的晚餐.jpg",
+            "audio": "/static/最後的晚餐.mp3"
         },
         {
             "id": "E-05", "title": "飛行器 Macchina Volante", "artist": "達文西 Leonardo da Vinci", "year": "1505",
             "location": "Draft Design",
             "desc": "達文西懷抱著飛行夢，所以他花了許多時間設計草稿，你是否也有什麼天馬行空的想像與發明呢？",
             "question": "💡 解答：達文西仔細觀察了「鳥類與蝙蝠的翅膀構造」，將仿生學的概念畫進了設計圖中，展現了他結合藝術觀察與科學工程的驚人天賦。",
-            "img": "/static/31飛行器.jpg"
+            "img": "/static/31飛行器.jpg",
+            "audio": "/static/飛行器.mp3"
         },
         {
             "id": "E-06", "title": "聖母與聖嬰習作", "artist": "米開朗基羅 Michelangelo", "year": "1530-32",
