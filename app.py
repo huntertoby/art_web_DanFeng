@@ -288,7 +288,14 @@ def artworks():
 # （三）展覽現場
 @app.route('/scene.html')
 def scene():
-    return render_template('scene.html')
+    # 自動讀取 static/scene 資料夾下的所有圖片
+    path_scene = os.path.join(app.static_folder, 'scene')
+    images_scene = []
+    if os.path.exists(path_scene):
+        images_scene = [f for f in os.listdir(path_scene) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.webp'))]
+        images_scene.sort()  # 確保照片順序固定
+
+    return render_template('scene.html', images=images_scene)
 
 # （四）開幕典禮
 @app.route('/opening.html')
@@ -298,7 +305,15 @@ def opening():
 # （五）展覽與教學
 @app.route('/teaching.html')
 def teaching():
-    return render_template('teaching.html')
+    # 自動讀取 static/teaching 資料夾下的所有圖片
+    path_teaching = os.path.join(app.static_folder, 'teaching')
+    images_teaching = []
+    if os.path.exists(path_teaching):
+        images_teaching = [f for f in os.listdir(path_teaching) if
+                           f.lower().endswith(('.png', '.jpg', '.jpeg', '.webp'))]
+        images_teaching.sort()
+
+    return render_template('teaching.html', images=images_teaching)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
