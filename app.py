@@ -300,7 +300,14 @@ def scene():
 # （四）開幕典禮
 @app.route('/opening.html')
 def opening():
-    return render_template('opening.html')
+    # 自動讀取 static/opening 資料夾下的所有圖片
+    path_opening = os.path.join(app.static_folder, 'opening')
+    images_opening = []
+    if os.path.exists(path_opening):
+        images_opening = [f for f in os.listdir(path_opening) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.webp'))]
+        images_opening.sort()
+
+    return render_template('opening.html', images=images_opening)
 
 # （五）展覽與教學
 @app.route('/teaching.html')
