@@ -1,100 +1,14 @@
-<!DOCTYPE html>
-<html lang="zh-TW" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>展覽現場 - 丹鳳高中展覽</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Noto Sans TC"', 'sans-serif'],
-                        serif: ['"Noto Serif TC"', 'serif'],
-                    },
-                    colors: {
-                        primary: '#8C3B00', secondary: '#D99A5B', bglight: '#FCFBF9', cardbg: '#FFFFFF', textdark: '#1C1917', textmuted: '#57534E'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .fade-in-up { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
-        .modal-backdrop { background-color: rgba(28, 25, 23, 0.9); backdrop-filter: blur(8px); }
-    </style>
-</head>
-<body class="bg-bglight text-textdark font-sans antialiased overflow-x-hidden">
+{% extends "base.html" %}
+{% from "_macros.html" import page_header, masonry_gallery, lightbox %}
 
-    <header class="pt-12 pb-10 px-6 text-center fade-in-up">
-        <a href="{{ url_for('index') }}" class="inline-flex items-center gap-2 text-sm font-medium text-textmuted hover:text-primary transition-colors mb-6 group">
-            <span class="group-hover:-translate-x-1 transition-transform">←</span> 返回導覽樞紐
-        </a>
-        <h1 class="font-serif text-3xl sm:text-4xl font-bold mb-4 text-textdark">
-            (三) 展覽現場紀實
-        </h1>
-        <p class="text-textmuted text-sm sm:text-base max-w-xl mx-auto mb-6">
-            鏡頭下的文藝復興，記錄了丹鳳高中師生們與藝術相遇的每一個珍貴瞬間。
-        </p>
-        <div class="w-16 h-px bg-primary/30 mx-auto"></div>
-    </header>
+{% block title %}展覽現場 - 丹鳳高中展覽{% endblock %}
 
-    <main class="max-w-6xl mx-auto px-5 sm:px-8 pb-32">
-        <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-            {% if images %}
-                {% for img in images %}
-                <div class="break-inside-avoid fade-in-up cursor-pointer group" onclick="openLightbox('/static/scene/{{ img }}')">
-                    <div class="relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-black/[0.03]">
-                        <img src="/static/scene/{{ img }}" loading="lazy" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                            <span class="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-3xl drop-shadow-md">⌕</span>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <p class="text-center text-textmuted col-span-full py-20">目前還沒有照片喔！請將照片放入 static/scene/ 資料夾中。</p>
-            {% endif %}
-        </div>
-    </main>
+{% block body %}
+{{ page_header("(三) 展覽現場紀實", "鏡頭下的文藝復興，記錄了丹鳳高中師生們與藝術相遇的每一個珍貴瞬間。") }}
 
-    <div id="lightboxModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
-        <div class="absolute inset-0 modal-backdrop" onclick="closeLightbox()"></div>
-        <button onclick="closeLightbox()" class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-all z-10 text-xl">✕</button>
-        <img id="lightboxImg" src="" class="relative z-10 max-w-full max-h-[90vh] rounded-xl shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
-    </div>
+<main class="max-w-6xl mx-auto px-5 sm:px-8 pb-32">
+    {{ masonry_gallery(photos, animate=true) }}
+</main>
+{% endblock %}
 
-    <script>
-        // 滑入動畫
-        document.addEventListener("DOMContentLoaded", () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-                });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
-        });
-
-        // 開啟/關閉放大照片
-        function openLightbox(src) {
-            const modal = document.getElementById('lightboxModal');
-            const img = document.getElementById('lightboxImg');
-            img.src = src;
-            modal.classList.remove('hidden');
-            setTimeout(() => { img.classList.remove('scale-95', 'opacity-0'); img.classList.add('scale-100', 'opacity-100'); }, 10);
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox() {
-            const modal = document.getElementById('lightboxModal');
-            const img = document.getElementById('lightboxImg');
-            img.classList.remove('scale-100', 'opacity-100');
-            img.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => { modal.classList.add('hidden'); document.body.style.overflow = 'auto'; }, 300);
-        }
-    </script>
-</body>
-</html>
+{% block modals %}{{ lightbox() }}{% endblock %}

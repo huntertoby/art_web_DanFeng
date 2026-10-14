@@ -1,0 +1,17 @@
+{% extends "admin/base.html" %}
+{% from "admin/_ui.html" import page_title %}
+
+{% block page_title %}相簿{% endblock %}
+
+{% block content %}
+{{ page_title("相簿") }}
+
+<div class="grid sm:grid-cols-2 gap-4">
+    {% for key, name in albums.items() %}
+    <a href="{{ url_for('admin.album', album=key) }}" class="bg-cardbg rounded-xl border border-black/[0.05] shadow-sm p-5 hover:border-primary/30 transition-colors flex items-center justify-between">
+        <span class="font-medium">{{ name }}</span>
+        <span class="text-sm text-textmuted">{{ counts[key] }} 張 →</span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

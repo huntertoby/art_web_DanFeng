@@ -1,211 +1,75 @@
-<!DOCTYPE html>
-<html lang="zh-TW" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>廣達藝術小尖兵成員 - 丹鳳高中展覽</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Noto Sans TC"', 'sans-serif'],
-                        serif: ['"Noto Serif TC"', 'serif'],
-                    },
-                    colors: {
-                        primary: '#8C3B00',
-                        secondary: '#D99A5B',
-                        bglight: '#FCFBF9',
-                        cardbg: '#FFFFFF',
-                        textdark: '#1C1917',
-                        textmuted: '#57534E'
-                    },
-                    boxShadow: {
-                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
-</head>
-<body class="bg-bglight text-textdark font-sans antialiased overflow-x-hidden">
+{% extends "base.html" %}
+{% from "_macros.html" import page_header, grid_gallery, lightbox %}
 
-    <header class="pt-12 pb-8 px-6 text-center fade-in-up">
-        <a href="{{ url_for('index') }}" class="inline-flex items-center gap-2 text-sm font-medium text-textmuted hover:text-primary transition-colors mb-6 group">
-            <span class="group-hover:-translate-x-1 transition-transform">←</span> 返回導覽樞紐
-        </a>
-        <h1 class="font-serif text-3xl sm:text-4xl font-bold mb-4 text-textdark">
-            廣達藝術小尖兵
-        </h1>
-        <div class="w-16 h-px bg-primary/30 mx-auto"></div>
-    </header>
+{% block title %}廣達藝術小尖兵成員 - 丹鳳高中展覽{% endblock %}
 
-    <main class="max-w-6xl mx-auto px-5 sm:px-8 pb-32">
+{% block body %}
+{{ page_header("廣達藝術小尖兵") }}
 
-        <section class="mb-24">
-            <div class="mb-10 text-center fade-in-up">
-                <span class="text-secondary text-2xl mb-2 block">✦</span>
-                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-textdark">成員介紹</h2>
-            </div>
+<main class="max-w-6xl mx-auto px-5 sm:px-8 pb-32">
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {% for student in students %}
-                <div class="bg-cardbg p-6 rounded-2xl shadow-soft border border-black/[0.03] fade-in-up hover:-translate-y-1 transition-transform duration-300 flex flex-col">
-                    <div class="relative w-24 h-24 mx-auto mb-5 flex-shrink-0">
-                        <img src="{{ url_for('static', filename='students/' + student.image) }}" alt="{{ student.name }}" class="w-full h-full object-cover rounded-full border-2 border-secondary/20 p-1 bg-white">
-                    </div>
-                    <h3 class="font-serif font-bold text-lg text-center text-textdark mb-3">{{ student.name }}</h3>
-                    <p class="text-textmuted text-sm leading-relaxed text-justify relative z-10 flex-grow">
-                        {{ student.quote }}
-                    </p>
+    <section class="mb-24">
+        <div class="mb-10 text-center fade-in-up">
+            <span class="text-secondary text-2xl mb-2 block">✦</span>
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-textdark">成員介紹</h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for student in students %}
+            <div class="bg-cardbg p-5 sm:p-6 rounded-2xl shadow-soft border border-black/[0.03] fade-in-up hover:-translate-y-1 transition-transform duration-300 flex flex-row sm:flex-col gap-4 sm:gap-0">
+                <div class="relative w-16 h-16 sm:w-24 sm:h-24 sm:mx-auto sm:mb-5 flex-shrink-0">
+                    <img src="{{ url_for('static', filename=student.image) }}" alt="{{ student.name }}" class="w-full h-full object-cover rounded-full border-2 border-secondary/20 p-1 bg-white">
                 </div>
-                {% endfor %}
-            </div>
-        </section>
-
-        <div class="w-full max-w-md mx-auto h-px bg-gray-200 mb-24 fade-in-up"></div>
-
-        <section>
-            <div class="mb-12 text-center fade-in-up">
-                <span class="text-secondary text-2xl mb-2 block">📚</span>
-                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-textdark">藝術小尖兵培訓課程</h2>
-            </div>
-
-            <div class="mb-20 fade-in-up">
-                <div class="mb-6 border-l-4 border-primary pl-4">
-                    <h3 class="font-serif text-2xl font-bold text-textdark">115/02/05 新北市立美術館走一回</h3>
-                </div>
-                <p class="text-textmuted leading-loose mb-8 text-[15px] sm:text-base">
-                    本校即將在這學期迎來廣達《游於藝》校園巡迴展。
-                    為了讓藝術的種子在校園落地生根，並落實小尖兵「學習與分享」的精神，訓育組特別在寒假規劃了為期兩天的培訓課程。
-                    第一天，小尖兵們實地走訪新北市美術館。透過親臨現場，讓孩子們學習「如何成為一位導覽員」。其實，藝術不需要完全讀懂，只需要用心感受、學習觀察，就是最棒的體驗。在「如果這都不算 Ai，我有什麼好 Bi」及「花心」兩個特展中，小尖兵們大開眼界！看著他們全神貫注地聆聽導覽、欣賞作品的眼神，那份專注真的令人動容。觀展結束後，大家也參與了「NTCAM變奏曲工作坊」動手玩創意。午間，小尖兵們一同前往鶯歌街上享用午餐，隨後漫步在美術館園區。舒適的天氣配上戶外的裝置藝術，讓人忍不住多拍了幾張美麗的照片。
-                    充實的一天～
-                </p>
-
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-                    {% for img_name in images_a %}
-                    <div class="aspect-square rounded-xl overflow-hidden bg-gray-100 group shadow-sm border border-black/[0.03]">
-                        <img src="{{ url_for('static', filename='a/' + img_name) }}" alt="美術館參訪照片" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cursor-pointer" onclick="openLightbox(this.src)">
-                    </div>
-                    {% endfor %}
+                <div class="min-w-0 flex-grow">
+                    <h3 class="font-serif font-bold text-lg sm:text-center text-textdark mb-1 sm:mb-3">{{ student.name }}</h3>
+                    <p class="text-textmuted text-sm leading-relaxed text-justify">{{ student.quote }}</p>
                 </div>
             </div>
+            {% endfor %}
+        </div>
+    </section>
 
-            <div class="fade-in-up">
-                <div class="mb-6 border-l-4 border-secondary pl-4">
-                    <h3 class="font-serif text-2xl font-bold text-textdark">115/02/06 導覽培訓課程</h3>
-                </div>
-                <p class="text-textmuted leading-loose mb-8 text-[15px] sm:text-base">
-                    「剩下一個月，老師不可能每天在你身邊，你們要靠自己淬鍊出上台的能力！」
-                    聽聽志銘老師這句充滿魄力的開場，就知道今天的培訓有多精實！
-                    為了迎接本學期廣達《游於藝》校園巡迴展，繼昨天的美術館實地參訪後，今天小尖兵們迎來了第二天的密集特訓。如果說昨天是「輸入（聽與觀察）」，今天就是挑戰「輸出（表達與實作）」的時刻！<br><br>
-                    <strong>上午｜導覽密技大解鎖</strong><br>
-                    教學經驗豐富的志銘老師，帶領孩子從認識展覽任務，到掌握導覽技巧。老師以「大衛像」和「聖母子」為例，引導大家觀察不同藝術家的詮釋手法，並分辨「欣賞」與「鑑賞」的差異。最重要的一課是：「藝術鑑賞沒有對錯，只有觀點。」孩子們開始試著將眼中的觀察、心中的感受，轉化為自己的語言說出來。<br><br>
-                    <strong>下午｜東西方美學的跨時空對話</strong><br>
-                    下午的實作課程，由本校優秀的美術林心宜老師接棒！文藝復興時期恰逢中國的元明時代，心宜老師巧妙地將「剪紙藝術」與「文藝復興」結合。剪紙折疊後的絕對「對稱性」，恰好呼應了文藝復興追求的「幾何構圖」。在這場幾何美學的碰撞中，小尖兵們發揮創意，完成了獨一無二的剪紙作品。<br><br>
-                    再次感謝兩位老師帶來的精彩課程！
-                    相信小尖兵們今天都滿載而歸～面對展覽倒數一個月，期許大家利用寒假將所學「內化」，做好萬全準備，屆時在展場上自信展現最棒的一面！
-                </p>
+    <div class="w-full max-w-md mx-auto h-px bg-gray-200 mb-24 fade-in-up"></div>
 
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-                    {% for img_name in images_b %}
-                    <div class="aspect-video sm:aspect-square rounded-xl overflow-hidden bg-gray-100 group shadow-sm border border-black/[0.03]">
-                        <img src="{{ url_for('static', filename='b/' + img_name) }}" alt="導覽培訓照片" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cursor-pointer" onclick="openLightbox(this.src)">
-                    </div>
-                    {% endfor %}
-                </div>
+    <section>
+        <div class="mb-12 text-center fade-in-up">
+            <span class="text-secondary text-2xl mb-2 block">📚</span>
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-textdark">藝術小尖兵培訓課程</h2>
+        </div>
+
+        <article class="mb-20 fade-in-up">
+            <div class="mb-6 border-l-4 border-primary pl-4">
+                <h3 class="font-serif text-xl sm:text-2xl font-bold text-textdark">115/02/05 新北市立美術館走一回</h3>
             </div>
+            <p class="text-textmuted leading-loose mb-8 text-[15px] sm:text-base">
+                本校即將在這學期迎來廣達《游於藝》校園巡迴展。
+                為了讓藝術的種子在校園落地生根，並落實小尖兵「學習與分享」的精神，訓育組特別在寒假規劃了為期兩天的培訓課程。
+                第一天，小尖兵們實地走訪新北市美術館。透過親臨現場，讓孩子們學習「如何成為一位導覽員」。其實，藝術不需要完全讀懂，只需要用心感受、學習觀察，就是最棒的體驗。在「如果這都不算 Ai，我有什麼好 Bi」及「花心」兩個特展中，小尖兵們大開眼界！看著他們全神貫注地聆聽導覽、欣賞作品的眼神，那份專注真的令人動容。觀展結束後，大家也參與了「NTCAM變奏曲工作坊」動手玩創意。午間，小尖兵們一同前往鶯歌街上享用午餐，隨後漫步在美術館園區。舒適的天氣配上戶外的裝置藝術，讓人忍不住多拍了幾張美麗的照片。
+                充實的一天～
+            </p>
+            {{ grid_gallery(museum_photos, alt="美術館參訪照片") }}
+        </article>
 
-        </section>
+        <article class="fade-in-up">
+            <div class="mb-6 border-l-4 border-secondary pl-4">
+                <h3 class="font-serif text-xl sm:text-2xl font-bold text-textdark">115/02/06 導覽培訓課程</h3>
+            </div>
+            <p class="text-textmuted leading-loose mb-8 text-[15px] sm:text-base">
+                「剩下一個月，老師不可能每天在你身邊，你們要靠自己淬鍊出上台的能力！」
+                聽聽志銘老師這句充滿魄力的開場，就知道今天的培訓有多精實！
+                為了迎接本學期廣達《游於藝》校園巡迴展，繼昨天的美術館實地參訪後，今天小尖兵們迎來了第二天的密集特訓。如果說昨天是「輸入（聽與觀察）」，今天就是挑戰「輸出（表達與實作）」的時刻！<br><br>
+                <strong>上午｜導覽密技大解鎖</strong><br>
+                教學經驗豐富的志銘老師，帶領孩子從認識展覽任務，到掌握導覽技巧。老師以「大衛像」和「聖母子」為例，引導大家觀察不同藝術家的詮釋手法，並分辨「欣賞」與「鑑賞」的差異。最重要的一課是：「藝術鑑賞沒有對錯，只有觀點。」孩子們開始試著將眼中的觀察、心中的感受，轉化為自己的語言說出來。<br><br>
+                <strong>下午｜東西方美學的跨時空對話</strong><br>
+                下午的實作課程，由本校優秀的美術林心宜老師接棒！文藝復興時期恰逢中國的元明時代，心宜老師巧妙地將「剪紙藝術」與「文藝復興」結合。剪紙折疊後的絕對「對稱性」，恰好呼應了文藝復興追求的「幾何構圖」。在這場幾何美學的碰撞中，小尖兵們發揮創意，完成了獨一無二的剪紙作品。<br><br>
+                再次感謝兩位老師帶來的精彩課程！
+                相信小尖兵們今天都滿載而歸～面對展覽倒數一個月，期許大家利用寒假將所學「內化」，做好萬全準備，屆時在展場上自信展現最棒的一面！
+            </p>
+            {{ grid_gallery(training_photos, alt="導覽培訓照片", tile_class="aspect-video sm:aspect-square") }}
+        </article>
 
-    </main>
+    </section>
+</main>
+{% endblock %}
 
-    <div id="imageLightbox" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 sm:p-8 bg-black/90 backdrop-blur-sm transition-opacity duration-300 opacity-0" onclick="closeLightbox()">
-        <button class="absolute top-4 right-4 sm:top-8 sm:right-8 text-white/50 hover:text-white w-12 h-12 flex items-center justify-center text-4xl sm:text-5xl transition-colors z-[110]" aria-label="關閉" onclick="closeLightbox()">&times;</button>
-
-        <img id="lightboxImg" src="" alt="放大檢視" class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // 滑入顯示動畫觀察器
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.05,
-                rootMargin: "0px 0px -20px 0px"
-            });
-            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
-        });
-
-        // 打開燈箱
-        function openLightbox(imageSrc) {
-            const lightbox = document.getElementById('imageLightbox');
-            const lightboxImg = document.getElementById('lightboxImg');
-
-            // 設定圖片路徑
-            lightboxImg.src = imageSrc;
-
-            // 顯示元素
-            lightbox.classList.remove('hidden');
-            void lightbox.offsetWidth; // 觸發重繪以播放動畫
-
-            // 執行淡入與放大動畫
-            lightbox.classList.remove('opacity-0');
-            lightbox.classList.add('opacity-100');
-            lightboxImg.classList.remove('scale-95');
-            lightboxImg.classList.add('scale-100');
-
-            // 鎖定背景滾動
-            document.body.style.overflow = 'hidden';
-        }
-
-        // 關閉燈箱
-        function closeLightbox() {
-            const lightbox = document.getElementById('imageLightbox');
-            const lightboxImg = document.getElementById('lightboxImg');
-
-            // 執行淡出與縮小動畫
-            lightbox.classList.remove('opacity-100');
-            lightbox.classList.add('opacity-0');
-            lightboxImg.classList.remove('scale-100');
-            lightboxImg.classList.add('scale-95');
-
-            // 等待動畫結束 (300ms) 後隱藏元素並清空圖片
-            setTimeout(() => {
-                lightbox.classList.add('hidden');
-                lightboxImg.src = '';
-                document.body.style.overflow = 'auto'; // 恢復背景滾動
-            }, 300);
-        }
-
-        // 監聽鍵盤 ESC 鍵來關閉燈箱
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
-                const lightbox = document.getElementById('imageLightbox');
-                if (!lightbox.classList.contains('hidden')) {
-                    closeLightbox();
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+{% block modals %}{{ lightbox() }}{% endblock %}

@@ -1,0 +1,67 @@
+{# 子頁面共用元件 #}
+
+{% macro page_header(title, subtitle=none) %}
+<header class="pt-12 pb-8 px-6 text-center fade-in-up">
+    <a href="{{ url_for('public.index') }}" class="inline-flex items-center gap-2 text-sm font-medium text-textmuted hover:text-primary transition-colors mb-4 py-2.5 px-3 -mx-3 group">
+        <span class="group-hover:-translate-x-1 transition-transform">←</span> 返回導覽樞紐
+    </a>
+    <h1 class="font-serif text-3xl sm:text-4xl font-bold mb-4 text-textdark">{{ title }}</h1>
+    {% if subtitle %}
+    <p class="text-textmuted text-sm sm:text-base max-w-xl mx-auto mb-6">{{ subtitle }}</p>
+    {% endif %}
+    <div class="w-16 h-px bg-primary/30 mx-auto"></div>
+</header>
+{% endmacro %}
+
+
+{% macro section_title(text) %}
+<div class="flex items-center gap-4 mb-8">
+    <div class="w-1.5 h-6 bg-primary rounded-full"></div>
+    <h3 class="font-serif text-2xl sm:text-3xl font-bold text-textdark">{{ text }}</h3>
+</div>
+{% endmacro %}
+
+
+{# 瀑布流相簿：點擊照片開燈箱。animate=True 時每張照片各自淡入 #}
+{% macro masonry_gallery(photos, animate=false) %}
+<div class="columns-2 lg:columns-3 gap-3 sm:gap-6 space-y-3 sm:space-y-6">
+    {% for photo in photos %}
+    {% set src = url_for('static', filename=photo.path) %}
+    <div class="break-inside-avoid cursor-pointer group {{ 'fade-in-up' if animate }}" data-lightbox="{{ src }}">
+        <div class="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-black/[0.03]">
+            <img src="{{ src }}" loading="lazy" alt="" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                <span class="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-3xl drop-shadow-md">⌕</span>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p class="text-center text-textmuted py-10 border-2 border-dashed border-gray-300 rounded-xl">
+        目前還沒有照片喔！
+    </p>
+    {% endfor %}
+</div>
+{% endmacro %}
+
+
+{# 方格相簿（小尖兵培訓用） #}
+{% macro grid_gallery(photos, alt, tile_class='aspect-square') %}
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+    {% for photo in photos %}
+    {% set src = url_for('static', filename=photo.path) %}
+    <div class="{{ tile_class }} rounded-xl overflow-hidden bg-gray-100 group shadow-sm border border-black/[0.03]">
+        <img src="{{ src }}" alt="{{ alt }}" loading="lazy" data-lightbox="{{ src }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cursor-pointer">
+    </div>
+    {% endfor %}
+</div>
+{% endmacro %}
+
+
+{# 照片燈箱：搭配 site.js 的 data-lightbox 使用 #}
+{% macro lightbox() %}
+<div id="lightbox" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 modal-backdrop" data-lightbox-close></div>
+    <button type="button" data-lightbox-close aria-label="關閉" class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-all z-10 text-xl">✕</button>
+    <img id="lightboxImg" src="" alt="放大檢視" class="relative z-10 max-w-full max-h-[90vh] rounded-xl shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+</div>
+{% endmacro %}

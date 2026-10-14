@@ -1,162 +1,78 @@
-<!DOCTYPE html>
-<html lang="zh-TW" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>114學年度廣達「游於藝」- 義大利文藝復興展 - 丹鳳高中</title>
-    <meta property="og:title" content="114學年度廣達「游於藝」- 義大利文藝復興展 - 丹鳳高中">
-    <meta property="og:description" content="歡迎來到義大利文藝復興的世界。這不僅僅是一次展覽，而是一把開啟歐洲文明黃金時代的鑰匙。">
+{% extends "base.html" %}
+
+{% set site_title = "114學年度廣達「游於藝」- 義大利文藝復興展 - 丹鳳高中" %}
+{% set site_description = "歡迎來到義大利文藝復興的世界。這不僅僅是一次展覽，而是一把開啟歐洲文明黃金時代的鑰匙。" %}
+
+{# 首頁的五個入口：image 與 emoji 二擇一 #}
+{% set sections = [
+    {"endpoint": "public.ambassadors", "title": "廣達藝術小尖兵", "image": "ambassadors.jpg"},
+    {"endpoint": "public.artworks", "title": "多才！多藝！<br>義大利文藝復興作品", "emoji": "🎨"},
+    {"endpoint": "public.scene", "title": "展覽現場", "emoji": "🏛️"},
+    {"endpoint": "public.opening", "title": "開幕典禮", "emoji": "✨"},
+    {"endpoint": "public.teaching", "title": "展覽與教學", "emoji": "📚"},
+] %}
+
+{% block title %}{{ site_title }}{% endblock %}
+
+{% block meta %}
+    <meta property="og:title" content="{{ site_title }}">
+    <meta property="og:description" content="{{ site_description }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://art-web-danfeng.onrender.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Noto Sans TC"', 'sans-serif'],
-                        serif: ['"Noto Serif TC"', 'serif'],
-                    },
-                    colors: {
-                        primary: '#8C3B00',
-                        secondary: '#D99A5B',
-                        bglight: '#FCFBF9',
-                        cardbg: '#FFFFFF',
-                        textdark: '#1C1917',
-                        textmuted: '#57534E'
-                    },
-                    boxShadow: {
-                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
-                        'float': '0 20px 40px -10px rgba(0,0,0,0.15)',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background-color: #e5e5e5; border-radius: 10px; }
+{% endblock %}
 
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
-</head>
-<body class="bg-bglight text-textdark font-sans antialiased overflow-x-hidden selection:bg-secondary/30">
+{% block body %}
+<header class="relative h-[100dvh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <img src="https://picsum.photos/seed/renaissance/1080/1920?blur=1" alt="Background" class="w-full h-full object-cover opacity-40 scale-105">
+        <div class="absolute inset-0 bg-gradient-to-b from-bglight/20 via-bglight/60 to-bglight"></div>
+    </div>
 
-    <header class="relative h-[100dvh] flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://picsum.photos/seed/renaissance/1080/1920?blur=1" alt="Background" class="w-full h-full object-cover opacity-40 scale-105">
-            <div class="absolute inset-0 bg-gradient-to-b from-bglight/20 via-bglight/60 to-bglight"></div>
+    <div class="relative z-10 w-full max-w-lg mx-auto px-6 text-center fade-in-up visible flex flex-col items-center">
+        <div class="inline-flex items-center justify-center py-1.5 px-4 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs md:text-sm font-medium tracking-widest mb-6 backdrop-blur-sm">
+            114學年度 廣達「遊於藝」巡迴展
         </div>
-
-        <div class="relative z-10 w-full max-w-lg mx-auto px-6 text-center fade-in-up visible flex flex-col items-center">
-            <div class="inline-flex items-center justify-center py-1.5 px-4 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs md:text-sm font-medium tracking-widest mb-6 backdrop-blur-sm">
-                114學年度 廣達「遊於藝」巡迴展
-            </div>
-            <h1 class="font-serif text-5xl sm:text-6xl font-bold mb-4 leading-tight tracking-wide text-textdark">
-                義大利<br>文藝復興展
-            </h1>
-            <p class="text-lg sm:text-xl text-textmuted mb-12 font-light max-w-[280px] sm:max-w-md mx-auto leading-relaxed">
-                在丹鳳高中，遇見五百年前的藝術靈魂。
-            </p>
-            <a href="#intro" class="group flex flex-col items-center gap-3 text-primary hover:text-[#5c2600] active:scale-95 transition-all duration-300">
-                <span class="text-xs uppercase tracking-[0.2em] font-medium">開始探索</span>
-                <div class="w-8 h-8 rounded-full border border-primary/30 flex items-center justify-center group-hover:bg-primary/10">
-                    ↓
-                </div>
-            </a>
-        </div>
-    </header>
-
-    <section id="intro" class="py-20 px-6 max-w-2xl mx-auto text-center fade-in-up">
-        <div class="text-secondary mb-4">✧</div>
-        <h2 class="font-serif text-2xl sm:text-3xl font-bold mb-6 text-textdark">歡迎來到義大利文藝復興的世界</h2>
-        <p class="text-[15px] sm:text-base text-textmuted leading-loose mb-8 text-justify sm:text-center">
-            這不僅僅是一次展覽，而是一把開啟歐洲文明黃金時代的鑰匙。
-            在這裡，我們將看見中世紀的莊嚴如何轉化為文藝復興的人性光輝，
-            看見透視法如何讓平面變成立體，看見大師們如何用畫筆和雕刻刀，
-            重新定義了「人」的價值。
+        <h1 class="font-serif text-5xl sm:text-6xl font-bold mb-4 leading-tight tracking-wide text-textdark">
+            義大利<br>文藝復興展
+        </h1>
+        <p class="text-lg sm:text-xl text-textmuted mb-12 font-light max-w-[280px] sm:max-w-md mx-auto leading-relaxed">
+            在丹鳳高中，遇見五百年前的藝術靈魂。
         </p>
-        <div class="w-12 h-px bg-primary/30 mx-auto"></div>
-    </section>
+        <a href="#intro" class="group flex flex-col items-center gap-3 text-primary hover:text-[#5c2600] active:scale-95 transition-all duration-300">
+            <span class="text-xs uppercase tracking-[0.2em] font-medium">開始探索</span>
+            <div class="w-8 h-8 rounded-full border border-primary/30 flex items-center justify-center group-hover:bg-primary/10">↓</div>
+        </a>
+    </div>
+</header>
 
-    <main class="max-w-5xl mx-auto px-5 sm:px-8 pb-32">
-        <div class="flex flex-wrap justify-center gap-x-8 gap-y-12">
+<section id="intro" class="py-20 px-6 max-w-2xl mx-auto text-center fade-in-up">
+    <div class="text-secondary mb-4">✧</div>
+    <h2 class="font-serif text-2xl sm:text-3xl font-bold mb-6 text-textdark">歡迎來到義大利文藝復興的世界</h2>
+    <p class="text-[15px] sm:text-base text-textmuted leading-loose mb-8 text-justify sm:text-center">
+        這不僅僅是一次展覽，而是一把開啟歐洲文明黃金時代的鑰匙。
+        在這裡，我們將看見中世紀的莊嚴如何轉化為文藝復興的人性光輝，
+        看見透視法如何讓平面變成立體，看見大師們如何用畫筆和雕刻刀，
+        重新定義了「人」的價值。
+    </p>
+    <div class="w-12 h-px bg-primary/30 mx-auto"></div>
+</section>
 
-            <a href="ambassadors.html" class="group flex flex-col items-center gap-4 fade-in-up w-[280px]">
-                <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-cardbg shadow-soft border border-black/[0.03] overflow-hidden flex items-center justify-center group-hover:-translate-y-2 group-hover:shadow-float transition-all duration-500">
-                    <img src="{{ url_for('static', filename='ambassadors.jpg') }}"
-                         alt="廣達藝術小尖兵"
-                         class="w-14 h-14 sm:w-16 sm:h-16 object-contain group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <h3 class="font-serif font-bold text-textdark text-lg sm:text-xl text-center group-hover:text-primary transition-colors">
-                    廣達藝術小尖兵
-                </h3>
-            </a>
-
-            <a href="artworks.html" class="group flex flex-col items-center gap-4 fade-in-up w-[280px]" style="transition-delay: 100ms;">
-                <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-cardbg shadow-soft border border-black/[0.03] flex items-center justify-center group-hover:-translate-y-2 group-hover:shadow-float transition-all duration-500">
-                    <span class="text-5xl sm:text-6xl group-hover:scale-110 transition-transform duration-500">🎨</span>
-                </div>
-                <h3 class="font-serif font-bold text-textdark text-lg sm:text-xl text-center group-hover:text-primary transition-colors">
-                    多才！多藝！<br>義大利文藝復興作品
-                </h3>
-            </a>
-
-            <a href="scene.html" class="group flex flex-col items-center gap-4 fade-in-up w-[280px]" style="transition-delay: 200ms;">
-                <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-cardbg shadow-soft border border-black/[0.03] flex items-center justify-center group-hover:-translate-y-2 group-hover:shadow-float transition-all duration-500">
-                    <span class="text-5xl sm:text-6xl group-hover:scale-110 transition-transform duration-500">🏛️</span>
-                </div>
-                <h3 class="font-serif font-bold text-textdark text-lg sm:text-xl text-center group-hover:text-primary transition-colors">
-                    展覽現場
-                </h3>
-            </a>
-
-            <a href="opening.html" class="group flex flex-col items-center gap-4 fade-in-up w-[280px]" style="transition-delay: 300ms;">
-                <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-cardbg shadow-soft border border-black/[0.03] flex items-center justify-center group-hover:-translate-y-2 group-hover:shadow-float transition-all duration-500">
-                    <span class="text-5xl sm:text-6xl group-hover:scale-110 transition-transform duration-500">✨</span>
-                </div>
-                <h3 class="font-serif font-bold text-textdark text-lg sm:text-xl text-center group-hover:text-primary transition-colors">
-                    開幕典禮
-                </h3>
-            </a>
-
-            <a href="teaching.html" class="group flex flex-col items-center gap-4 fade-in-up w-[280px]" style="transition-delay: 400ms;">
-                <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-cardbg shadow-soft border border-black/[0.03] flex items-center justify-center group-hover:-translate-y-2 group-hover:shadow-float transition-all duration-500">
-                    <span class="text-5xl sm:text-6xl group-hover:scale-110 transition-transform duration-500">📚</span>
-                </div>
-                <h3 class="font-serif font-bold text-textdark text-lg sm:text-xl text-center group-hover:text-primary transition-colors">
-                    展覽與教學
-                </h3>
-            </a>
-
-        </div>
-    </main>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.05,
-                rootMargin: "0px 0px -20px 0px"
-            });
-            document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
-        });
-    </script>
-</body>
-</html>
+<main class="max-w-5xl mx-auto px-5 sm:px-8 pb-32">
+    <nav class="flex flex-wrap justify-center gap-x-4 sm:gap-x-8 gap-y-10 sm:gap-y-12">
+        {% for section in sections %}
+        <a href="{{ url_for(section.endpoint) }}" class="group flex flex-col items-center gap-3 sm:gap-4 fade-in-up w-[calc(50%-0.5rem)] sm:w-[280px]" style="transition-delay: {{ loop.index0 * 100 }}ms;">
+            <div class="w-24 h-24 sm:w-40 sm:h-40 rounded-full bg-cardbg shadow-soft border border-black/[0.03] overflow-hidden flex items-center justify-center group-hover:-translate-y-2 group-hover:shadow-float transition-all duration-500">
+                {% if section.image %}
+                <img src="{{ url_for('static', filename=section.image) }}" alt="{{ section.title }}" class="w-11 h-11 sm:w-16 sm:h-16 object-contain group-hover:scale-110 transition-transform duration-500">
+                {% else %}
+                <span class="text-4xl sm:text-6xl group-hover:scale-110 transition-transform duration-500">{{ section.emoji }}</span>
+                {% endif %}
+            </div>
+            <h3 class="font-serif font-bold text-textdark text-base sm:text-xl text-center leading-snug group-hover:text-primary transition-colors">
+                {{ section.title | safe }}
+            </h3>
+        </a>
+        {% endfor %}
+    </nav>
+</main>
+{% endblock %}

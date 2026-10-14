@@ -1,0 +1,36 @@
+{% extends "admin/base.html" %}
+{% from "admin/_ui.html" import page_title, post_button, move_buttons, button_class, input_class %}
+
+{% block page_title %}分區{% endblock %}
+
+{% block content %}
+{{ page_title("分區") }}
+<p class="text-sm text-textmuted -mt-5 mb-6">前台作品頁依這裡的順序顯示；沒有上架作品的分區不會出現在前台。</p>
+
+<div class="bg-cardbg rounded-xl border border-black/[0.05] shadow-sm divide-y divide-gray-100 mb-8">
+    {% for section in sections %}
+    <div class="flex flex-wrap items-center gap-3 px-4 py-3">
+        {{ move_buttons('admin.section_move', loop.first, loop.last, section_id=section.id) }}
+        <form method="post" action="{{ url_for('admin.section_rename', section_id=section.id) }}" class="flex flex-1 min-w-[200px] items-center gap-2">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input name="name" value="{{ section.name }}" aria-label="分區名稱" class="{{ input_class }}">
+            <button type="submit" class="{{ button_class('ghost') }} whitespace-nowrap">改名</button>
+        </form>
+        <a href="{{ url_for('admin.artworks', _anchor='section-%d' % section.id) }}" class="text-sm text-textmuted hover:text-primary whitespace-nowrap">{{ section.artworks | length }} 件作品</a>
+        {{ post_button(url_for('admin.section_delete', section_id=section.id), "刪除", style="danger",
+                       confirm="確定要刪除分區「%s」嗎？" % section.name) }}
+    </div>
+    {% else %}
+    <p class="px-4 py-6 text-sm text-textmuted text-center">還沒有分區</p>
+    {% endfor %}
+</div>
+
+<form method="post" novalidate class="bg-cardbg rounded-xl border border-black/[0.05] shadow-sm p-5 flex flex-wrap items-start gap-3">
+    {{ form.hidden_tag() }}
+    <div class="flex-1 min-w-[200px]">
+        {{ form.name(class=input_class, placeholder="新分區名稱") }}
+        {% for error in form.name.errors %}<p class="mt-1 text-xs text-red-600">{{ error }}</p>{% endfor %}
+    </div>
+    <button type="submit" class="{{ button_class('primary') }}">＋ 新增分區</button>
+</form>
+{% endblock %}

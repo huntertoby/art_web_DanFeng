@@ -1,0 +1,30 @@
+/* 全站共用樣式（顏色、字型等設計變數在 base.html 的 tailwind.config） */
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background-color: #e5e5e5; border-radius: 10px; }
+
+/* 捲動到畫面內時淡入，由 site.js 加上 .visible */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.modal-backdrop {
+    background-color: rgba(28, 25, 23, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.modal-backdrop--light {
+    background-color: rgba(28, 25, 23, 0.7);
+}
+
+audio {
+    border-radius: 999px;
+    height: 40px;
+}

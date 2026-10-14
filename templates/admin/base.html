@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% set nav = [
+    ("admin.dashboard", "總覽", "◎"),
+    ("admin.artworks", "作品", "🎨"),
+    ("admin.sections", "分區", "▤"),
+    ("admin.students", "藝術小尖兵", "👤"),
+    ("admin.photos", "相簿", "📷"),
+] %}
+
+{% block title %}{% block page_title %}{% endblock %} - 展覽後台{% endblock %}
+
+{% block body %}
+<div class="min-h-screen md:flex">
+    {# 手機：上方一列標題＋前台/登出，下方五格導覽；桌機：左側直排側欄 #}
+    <aside class="bg-textdark text-white/80 flex flex-wrap items-center md:flex-col md:flex-nowrap md:items-stretch md:w-56 md:sticky md:top-0 md:h-screen">
+        <div class="flex-1 px-4 py-3 md:flex-none md:px-5 md:py-6 md:border-b border-white/10">
+            <p class="font-serif text-base md:text-lg font-bold text-white">展覽後台</p>
+            <p class="hidden md:block text-xs text-white/50 mt-1">文藝復興展・丹鳳高中</p>
+        </div>
+        <nav class="order-3 md:order-none w-full md:w-auto grid grid-cols-5 md:flex md:flex-col md:flex-1 gap-1 px-2 pb-2 md:py-4">
+            {% for endpoint, label, icon in nav %}
+            {% set active = request.endpoint == endpoint or request.endpoint.startswith(endpoint.rstrip('s') ~ '_') or (endpoint == 'admin.photos' and request.endpoint == 'admin.album') %}
+            <a href="{{ url_for(endpoint) }}" class="flex flex-col md:flex-row items-center gap-1 md:gap-2.5 whitespace-nowrap rounded-lg px-1 md:px-3 py-2 text-xs md:text-sm transition-colors {{ 'bg-white/15 text-white font-medium' if active else 'hover:bg-white/10 hover:text-white' }}">
+                <span class="text-lg md:text-base md:w-5 text-center leading-none">{{ icon }}</span>{{ label }}
+            </a>
+            {% endfor %}
+        </nav>
+        <div class="order-2 md:order-none flex md:flex-col items-center md:items-stretch gap-1 px-2 md:py-4 md:border-t border-white/10 text-sm">
+            <a href="{{ url_for('public.index') }}" target="_blank" class="rounded-lg px-3 py-2 hover:bg-white/10 hover:text-white whitespace-nowrap">↗ 前台</a>
+            <form method="post" action="{{ url_for('admin.logout') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="w-full text-left rounded-lg px-3 py-2 hover:bg-white/10 hover:text-white whitespace-nowrap">登出<span class="hidden md:inline"> {{ current_user.username }}</span></button>
+            </form>
+        </div>
+    </aside>
+
+    <main class="flex-1 min-w-0 px-4 sm:px-8 py-6 md:py-8 max-w-5xl">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <div class="mb-4 rounded-lg px-4 py-3 text-sm {{ 'bg-red-50 text-red-700 border border-red-200' if category == 'error' else 'bg-green-50 text-green-800 border border-green-200' }}">{{ message }}</div>
+        {% endfor %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // 刪除等危險動作先確認
+    document.addEventListener('submit', (event) => {
+        const message = event.target.dataset.confirm;
+        if (message && !window.confirm(message)) event.preventDefault();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "admin/_ui.html" import field, button_class %}
+
+{% block title %}登入 - 展覽後台{% endblock %}
+
+{% block body %}
+<main class="min-h-screen flex items-center justify-center px-5">
+    <div class="w-full max-w-sm bg-cardbg rounded-2xl shadow-soft border border-black/[0.03] p-8">
+        <div class="text-center mb-8">
+            <span class="text-secondary text-2xl">✦</span>
+            <h1 class="font-serif text-2xl font-bold mt-2">展覽後台</h1>
+            <p class="text-sm text-textmuted mt-1">義大利文藝復興展・丹鳳高中</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <div class="mb-4 rounded-lg px-4 py-3 text-sm {{ 'bg-red-50 text-red-700' if category == 'error' else 'bg-amber-50 text-amber-800' }}">{{ message }}</div>
+        {% endfor %}
+        {% endwith %}
+
+        <form method="post" novalidate>
+            {{ form.hidden_tag() }}
+            {{ field(form.username) }}
+            {{ field(form.password) }}
+            {{ field(form.remember) }}
+            <button type="submit" class="{{ button_class('primary') }} w-full justify-center py-2.5">登入</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

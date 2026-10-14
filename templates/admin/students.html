@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+{% from "admin/_ui.html" import page_title, post_button, move_buttons, button_class %}
+
+{% block page_title %}藝術小尖兵{% endblock %}
+
+{% block content %}
+{% set new_button %}<a href="{{ url_for('admin.student_new') }}" class="{{ button_class('primary') }}">＋ 新增小尖兵</a>{% endset %}
+{{ page_title("藝術小尖兵", new_button) }}
+
+<div class="bg-cardbg rounded-xl border border-black/[0.05] shadow-sm divide-y divide-gray-100">
+    {% for student in students %}
+    <div class="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-2 px-3 sm:px-4 py-3">
+        {{ move_buttons('admin.student_move', loop.first, loop.last, student_id=student.id) }}
+        <img src="{{ url_for('static', filename=student.image) }}" alt="" class="w-12 h-12 rounded-full object-cover bg-gray-100 flex-shrink-0">
+        <div class="min-w-0 flex-1 basis-40">
+            <p class="font-medium">{{ student.name }}</p>
+            <p class="text-xs text-textmuted truncate">{{ student.quote }}</p>
+        </div>
+        <div class="flex items-center gap-1 ml-auto">
+        <a href="{{ url_for('admin.student_edit', student_id=student.id) }}" class="{{ button_class('ghost') }}">編輯</a>
+        {{ post_button(url_for('admin.student_delete', student_id=student.id), "刪除", style="danger",
+                       confirm="確定要刪除「%s」嗎？" % student.name) }}
+        </div>
+    </div>
+    {% else %}
+    <p class="px-4 py-6 text-sm text-textmuted text-center">還沒有小尖兵</p>
+    {% endfor %}
+</div>
+{% endblock %}
