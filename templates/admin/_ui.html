@@ -1,0 +1,66 @@
+{# 後台共用元件 #}
+
+{% set input_class = "w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none" %}
+
+{# 一般表單欄位：label + 輸入框 + 說明 + 錯誤訊息 #}
+{% macro field(f, rows=none) %}
+<div class="mb-5">
+    {% if f.type == "BooleanField" %}
+    <label class="inline-flex items-center gap-2 text-sm font-medium text-textdark cursor-pointer">
+        {{ f(class="w-4 h-4 accent-primary") }} {{ f.label.text }}
+    </label>
+    {% else %}
+    {{ f.label(class="block text-sm font-medium text-textdark mb-1.5") }}
+    {% if f.type == "TextAreaField" %}
+        {{ f(class=input_class, rows=rows or 4) }}
+    {% elif f.type in ("FileField", "MultipleFileField") %}
+        {{ f(class="block w-full text-sm text-textmuted file:mr-3 file:rounded-lg file:border-0 file:bg-primary/10 file:px-4 file:py-2 file:text-primary file:font-medium hover:file:bg-primary/20 cursor-pointer") }}
+    {% else %}
+        {{ f(class=input_class) }}
+    {% endif %}
+    {% endif %}
+    {% if f.description %}<p class="mt-1 text-xs text-textmuted">{{ f.description }}</p>{% endif %}
+    {% for error in f.errors %}<p class="mt-1 text-xs text-red-600">{{ error }}</p>{% endfor %}
+</div>
+{% endmacro %}
+
+
+{# 單一按鈕的 POST 表單（刪除、上下移動、上下架…），帶 CSRF token #}
+{% macro post_button(action, label, style="ghost", confirm=none, title=none, extra="") %}
+<form method="post" action="{{ action }}" class="inline" {% if confirm %}data-confirm="{{ confirm }}"{% endif %}>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" {% if title %}title="{{ title }}" aria-label="{{ title }}"{% endif %} class="{{ button_class(style) }} {{ extra }}">{{ label }}</button>
+</form>
+{% endmacro %}
+
+
+{% macro button_class(style="primary") -%}
+{%- if style == "primary" -%}
+inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-[#6f2f00] transition-colors
+{%- elif style == "on" -%}
+inline-flex items-center rounded-full bg-green-50 px-3 py-1.5 text-xs font-medium text-green-700 ring-1 ring-green-200 hover:bg-green-100 transition-colors whitespace-nowrap
+{%- elif style == "off" -%}
+inline-flex items-center rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-500 ring-1 ring-gray-200 hover:bg-gray-200 transition-colors whitespace-nowrap
+{%- elif style == "danger" -%}
+inline-flex items-center whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm text-red-600 hover:bg-red-50 transition-colors
+{%- else -%}
+inline-flex items-center whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm text-textmuted hover:bg-gray-100 hover:text-textdark transition-colors
+{%- endif -%}
+{%- endmacro %}
+
+
+{# 上移／下移按鈕組 #}
+{% macro move_buttons(endpoint, first, last) %}
+<div class="inline-flex flex-shrink-0">
+    {% if not first %}{{ post_button(url_for(endpoint, direction="up", **kwargs), "↑", title="上移", extra="w-8 justify-center") }}{% else %}<span class="inline-block w-8"></span>{% endif %}
+    {% if not last %}{{ post_button(url_for(endpoint, direction="down", **kwargs), "↓", title="下移", extra="w-8 justify-center") }}{% else %}<span class="inline-block w-8"></span>{% endif %}
+</div>
+{% endmacro %}
+
+
+{% macro page_title(text, action=none) %}
+<div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+    <h1 class="font-serif text-2xl sm:text-3xl font-bold text-textdark">{{ text }}</h1>
+    {% if action %}<div>{{ action }}</div>{% endif %}
+</div>
+{% endmacro %}

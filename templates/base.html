@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% block meta %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        serif: ['"Noto Serif TC"', 'serif'],
+                    },
+                    colors: {
+                        primary: '#8C3B00',
+                        secondary: '#D99A5B',
+                        bglight: '#FCFBF9',
+                        cardbg: '#FFFFFF',
+                        textdark: '#1C1917',
+                        textmuted: '#57534E',
+                    },
+                    boxShadow: {
+                        soft: '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        float: '0 20px 40px -10px rgba(0,0,0,0.15)',
+                    },
+                },
+            },
+        };
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+</head>
+<body class="bg-bglight text-textdark font-sans antialiased overflow-x-hidden selection:bg-secondary/30">
+
+    {% block body %}{% endblock %}
+
+    {% block modals %}{% endblock %}
+
+    <script src="{{ url_for('static', filename='js/site.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

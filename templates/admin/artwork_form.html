@@ -1,0 +1,54 @@
+{% extends "admin/base.html" %}
+{% from "admin/_ui.html" import page_title, field, button_class %}
+
+{% block page_title %}{{ "新增作品" if is_new else "編輯作品" }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('admin.artworks') }}" class="inline-block py-2 text-sm text-textmuted hover:text-primary">← 回作品列表</a>
+<div class="mt-3">{{ page_title("新增作品" if is_new else "編輯：" ~ artwork.title) }}</div>
+
+<form method="post" enctype="multipart/form-data" novalidate class="grid lg:grid-cols-3 gap-8">
+    {{ form.hidden_tag() }}
+
+    <div class="lg:col-span-2 bg-cardbg rounded-xl border border-black/[0.05] shadow-sm p-6">
+        <div class="grid sm:grid-cols-2 gap-x-4">
+            {{ field(form.code) }}
+            {{ field(form.section_id) }}
+        </div>
+        {{ field(form.title) }}
+        <div class="grid sm:grid-cols-2 gap-x-4">
+            {{ field(form.artist) }}
+            {{ field(form.year) }}
+        </div>
+        {{ field(form.location) }}
+        {{ field(form.description, rows=4) }}
+        {{ field(form.answer, rows=3) }}
+    </div>
+
+    <div class="space-y-6">
+        <div class="bg-cardbg rounded-xl border border-black/[0.05] shadow-sm p-6">
+            {% if artwork.image %}
+            <img src="{{ url_for('static', filename=artwork.image) }}" alt="" class="w-full aspect-[4/3] object-cover rounded-lg mb-4 bg-gray-100">
+            {% endif %}
+            {{ field(form.image) }}
+            {% if not is_new %}<p class="-mt-3 text-xs text-textmuted">不選檔案就保留目前的圖片</p>{% endif %}
+        </div>
+
+        <div class="bg-cardbg rounded-xl border border-black/[0.05] shadow-sm p-6">
+            {% if artwork.audio %}
+            <audio controls src="{{ url_for('static', filename=artwork.audio) }}" class="w-full mb-4"></audio>
+            {% endif %}
+            {{ field(form.audio) }}
+            {% if artwork.audio %}{{ field(form.remove_audio) }}{% endif %}
+            {{ field(form.student_name) }}
+        </div>
+
+        <div class="bg-cardbg rounded-xl border border-black/[0.05] shadow-sm p-6">
+            {{ field(form.is_published) }}
+            <button type="submit" class="{{ button_class('primary') }} w-full justify-center py-2.5">
+                {{ "新增作品" if is_new else "儲存變更" }}
+            </button>
+        </div>
+    </div>
+</form>
+{% endblock %}

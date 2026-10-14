@@ -179,3 +179,8 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+# 後台上傳的檔案（不進 git）
+static/uploads/
+
+# IDE
+.idea/

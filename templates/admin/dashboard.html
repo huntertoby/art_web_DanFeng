@@ -1,0 +1,43 @@
+{% extends "admin/base.html" %}
+{% from "admin/_ui.html" import page_title, button_class %}
+
+{% block page_title %}總覽{% endblock %}
+
+{% block content %}
+{{ page_title("總覽") }}
+
+{% set cards = [
+    ("作品", stats.artworks, url_for('admin.artworks'), "下架中 %d 件" % stats.unpublished if stats.unpublished else "全部上架中"),
+    ("分區", stats.sections, url_for('admin.sections'), ""),
+    ("藝術小尖兵", stats.students, url_for('admin.students'), ""),
+    ("相簿照片", stats.photos, url_for('admin.photos'), "5 個相簿"),
+] %}
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+    {% for label, value, href, note in cards %}
+    <a href="{{ href }}" class="bg-cardbg rounded-xl border border-black/[0.05] shadow-sm p-5 hover:border-primary/30 transition-colors">
+        <p class="text-sm text-textmuted">{{ label }}</p>
+        <p class="text-3xl font-bold text-textdark mt-1">{{ value }}</p>
+        <p class="text-xs text-textmuted mt-1 h-4">{{ note }}</p>
+    </a>
+    {% endfor %}
+</div>
+
+<div class="flex items-center justify-between mb-4">
+    <h2 class="font-serif text-xl font-bold">最近更新的作品</h2>
+    <a href="{{ url_for('admin.artwork_new') }}" class="{{ button_class('primary') }}">＋ 新增作品</a>
+</div>
+<div class="bg-cardbg rounded-xl border border-black/[0.05] shadow-sm divide-y divide-gray-100">
+    {% for art in recent %}
+    <a href="{{ url_for('admin.artwork_edit', artwork_id=art.id) }}" class="flex items-center gap-4 px-4 py-3 hover:bg-bglight">
+        <img src="{{ url_for('static', filename=art.image) }}" alt="" class="w-12 h-12 rounded-lg object-cover bg-gray-100">
+        <div class="min-w-0 flex-1">
+            <p class="font-medium truncate">{{ art.title }}</p>
+            <p class="text-xs text-textmuted">{{ art.code }}・{{ art.section.name }}</p>
+        </div>
+        <span class="text-xs text-textmuted whitespace-nowrap">{{ art.updated_at.strftime('%Y-%m-%d') }}</span>
+    </a>
+    {% else %}
+    <p class="px-4 py-6 text-sm text-textmuted text-center">還沒有作品</p>
+    {% endfor %}
+</div>
+{% endblock %}
