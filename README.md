@@ -46,16 +46,27 @@ flask --app app db upgrade
 
 ## 部署到 Render
 
-1. 建立 PostgreSQL 資料庫，把連線字串設為 Web Service 的環境變數 `DATABASE_URL`。
-2. 設定環境變數 `SECRET_KEY`（一串夠長的亂數，例如 `python -c "import secrets; print(secrets.token_hex(32))"`）。
-3. Build Command：`pip install -r requirements.txt && flask --app app db upgrade`
-   Start Command：`gunicorn app:app`
-4. 第一次部署後，在 Render 的 Shell 執行一次：
-   `flask --app app seed` 和 `flask --app app create-admin 你的帳號`
+在 Render 上啟動時，`danfeng/bootstrap.py` 會自動：建立／更新資料表 → 資料庫為空時匯入初始資料 → 依環境變數建立管理員。
+**不需要進 Shell 執行任何指令**（Render 免費方案也沒有 Shell）。
 
-⚠️ **上傳檔案的限制**：Render 免費方案的硬碟在每次重新部署時會被清空，
-後台上傳的圖片／音檔（`static/uploads/`）會消失，但資料庫裡的紀錄還在。
-正式使用前需擇一處理：掛載 Render Persistent Disk 到 `static/uploads`，或改寫 `danfeng/storage.py` 存到雲端儲存（S3、Cloudinary 等）。
+Web Service 的設定：
+
+| 項目 | 值 |
+|---|---|
+| Build Command | `pip install -r requirements.txt` |
+| Start Command | `gunicorn app:app` |
+| 環境變數 `SECRET_KEY` | 一串夠長的亂數：`python -c "import secrets; print(secrets.token_hex(32))"` |
+| 環境變數 `ADMIN_USERNAME` | 後台帳號，例如 `admin` |
+| 環境變數 `ADMIN_PASSWORD` | 後台密碼（至少 8 字元）；之後改這個值並重新部署即可改密碼 |
+| 環境變數 `DATABASE_URL` | 選填，見下方 |
+
+### 資料會不會保存？
+
+- **沒設 `DATABASE_URL`**：使用 Render 硬碟上的 SQLite。Render 免費方案的硬碟在**每次部署或服務重啟時都會清空**，
+  後台做的修改會消失，網站回到 `content/*.json` 的初始內容。前台展示不受影響，適合只想讓網站正常運作的情況。
+- **要保存後台的修改**：建立一個 PostgreSQL（Render、Neon、Supabase 等都有免費方案，限制與期限請以各家最新說明為準），
+  把連線字串設為 `DATABASE_URL`。第一次啟動會自動建表並匯入資料。
+- 後台上傳的圖片／音檔存在 `static/uploads/`，同樣會在部署時被清空；要保存需掛載 Persistent Disk 或改寫 `danfeng/storage.py` 存到雲端。
 
 ## 常見維護
 
